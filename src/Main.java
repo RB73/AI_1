@@ -22,6 +22,7 @@ public class Main {
     public static int targetNum;
     public static long timeLimit;
     public static ArrayList<String> operations = new ArrayList<String>();
+    public static ArrayList<function> funs = new ArrayList<function>();
     public static long startTime; //in milliseconds
   
 
@@ -60,6 +61,8 @@ public class Main {
 	    for(int i = 4; i < inputList.size(); i++){
 	    	operations.add(inputList.get(i));
 	    }
+	    //convert the list of operations to list of functions
+	    funs = operationsToFunctions(operations);
 	    
 	    //Choose which search to run and run it
 	    /*
@@ -70,11 +73,46 @@ public class Main {
 	     * 
 	     */
 	    
-	    //print the given inputs 
-	    for (int i =0; i < inputList.size(); i++){
-	    	System.out.println(inputList.get(i));
-	    }
-	      
+	
+	}
+	
+	
+	
+	/*
+	 * A function that takes a list of operations as strings and translates them to list of functions
+	 */
+	public static ArrayList<function> operationsToFunctions(ArrayList<String> ops){
+		//initialize variables
+		ArrayList<function> funcs = new ArrayList<function>();
+		char funcChar;
+		int funcNum = 0;
+		int inputNum = 0; 
+		//loops through the list of operations
+		for(int i = 0; i<ops.size(); i++){
+			funcChar = ops.get(i).charAt(0);//gets the first character of the operation which is the operator character, i.e (+,-,*...)
+			inputNum = Integer.parseInt(ops.get(i).substring(1)); //gets the number that follows the operator and stores it into an integer
+			
+			//find the function number corresponding to each operator
+			// 0 = add, 1 = sub, 2 = mul, 3 = div, 4 = exp
+			switch(funcChar){	
+			case '+':
+				funcNum = 0;
+			case '-':
+				funcNum = 1;
+			case '*':
+				funcNum = 2;
+			case '/':
+				funcNum = 3;
+			case '^':
+				funcNum = 4;
+			}
+		//create a function
+		function fun = new function (funcNum, inputNum);
+		//add it to the list of functions
+		funcs.add(fun);
+		}
+		//return the list of functions when done
+		return funcs;
 	}
 
 }
