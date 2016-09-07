@@ -3,10 +3,6 @@ import java.util.ArrayList;
 
 public class IterativeDeepening {
 
-    //TODO: suggestion turn add/sub/div/etc into constants in AIMath
-	//also add size method for operations in AIMath
-	
-    //TODO: deal with loops, how are expanded nodes counted?
 
     AIMath math;
     int start;
@@ -24,7 +20,8 @@ public class IterativeDeepening {
         this.start = start;
         this.goal = goal;
         goalOperations = new ArrayList<Integer>();
-        branchingFactor = math.operations.size();  
+        branchingFactor = math.operations.size();  	//TODO: change this
+        //branchingFactor = math.Size();
     }
 
     /**
@@ -53,6 +50,10 @@ public class IterativeDeepening {
      * @return		value of goal if goal is reached; -1 otherwise
      */
     public int searchBranch(int depth, int node){ 
+    	// TODO: check the time here
+    	nodesExpanded++;
+    	
+    	
         int result;
 
         if(depth == 0 && node == goal)	// success case
