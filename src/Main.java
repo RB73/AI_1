@@ -21,7 +21,7 @@ public class Main {
     public static int startNum;
     public static int targetNum;
     public static long timeLimit;
-    public static ArrayList<String> operations = new ArrayList<String>();
+    public static ArrayList<String> inputOperations = new ArrayList<String>();
     public static ArrayList<Function> funs = new ArrayList<Function>();
     public static long startTime; //in milliseconds
   
@@ -59,14 +59,16 @@ public class Main {
 	    targetNum = Integer.parseInt(inputList.get(2));
 	    timeLimit = (long)(Double.parseDouble(inputList.get(3))*1000); //in milliseconds
 	    for(int i = 4; i < inputList.size(); i++){
-	    	operations.add(inputList.get(i));
+	    	inputOperations.add(inputList.get(i));
 	    }
 	    //convert the list of operations to list of Functions
-	    funs = operationsToFunctions(operations);
+	    funs = operationsToFunctions(inputOperations);
 	    
 	    // Create AIMath object, add operations list to it
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
+	    
+	    
 	    
 	    //Choose which search to run and run it
 	    /*
@@ -117,6 +119,24 @@ public class Main {
 		}
 		//return the list of Functions when done
 		return funcs;
+	}
+	
+	public void printOutput(Result res, AIMath math){
+		int current = startNum;
+		int next; 
+		String currentStr;
+		String toPrint;
+		for(int i = 0; i < res.operations.size(); i++){
+			currentStr = Integer.toString(current) + getOpFromIndex(res.operations.get(i));
+			next = math.Op((int) res.operations.get(i),current);
+			toPrint = currentStr + "=" + Integer.toString(next);
+			System.out.println(toPrint);
+			current = next;
+		}
+		
+	}
+	public String getOpFromIndex(int index){
+		return inputOperations.get(index);
 	}
 
 }
