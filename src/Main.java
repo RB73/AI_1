@@ -64,6 +64,10 @@ public class Main {
 	    //convert the list of operations to list of functions
 	    funs = operationsToFunctions(operations);
 	    
+	    // Create AIMath object, add operations list to it
+	    AIMath Math = new AIMath();
+	    Math.AddOps(funs);
+	    
 	    //Choose which search to run and run it
 	    /*
 	     * while((System.currentTimeMillis() - startTime) < timeLimit || result found){

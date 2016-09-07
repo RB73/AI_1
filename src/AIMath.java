@@ -1,7 +1,7 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class AIMath {
-	LinkedList<function> operations = new LinkedList<function>(); // All allowed operations for the search
+	ArrayList<function> operations = new ArrayList<function>(); // All allowed operations for the search
 	
 	public int Add(int input, int num){ // Math functions, all return int
 		return input + num;
@@ -24,6 +24,9 @@ public class AIMath {
 	
 	public void AddOp(int operation, int num){ // Adds operations to allowed operations
 		operations.add(new function(operation, num));
+	}
+	public void AddOps(ArrayList<function> opList){
+		operations = opList;
 	}
 	public function returnOp(int num){ // Returns operation at num
 		return operations.get(num);
