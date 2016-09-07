@@ -4,12 +4,14 @@ public class Result {
 
     int nodesExpanded;
     int depth;
-    ArrayList<Integer> operations;	// final sequence of operations leading to the goal value
+    ArrayList<Integer> operations;	// sequence of indexes for operations leading to the goal value
+    long searchTime;
 
-    public Result(int nodesExpanded, int depth, ArrayList<Integer> operations){
+    public Result(int nodesExpanded, int depth, ArrayList<Integer> operations, long searchTime){
         this.nodesExpanded = nodesExpanded;
         this.depth = depth;
         this.operations = operations;
+        this.searchTime = searchTime;
     }
     
     
@@ -38,4 +40,13 @@ public class Result {
     public void setOperations(ArrayList<Integer> operations) {
         this.operations = operations;
     }
+    
+    public long getSearchTime() {
+        return searchTime;
+    }
+
+    public void setSearchTime(int searchTime) {
+        this.searchTime = searchTime;
+    }
+    
 }
