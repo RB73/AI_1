@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class AIMath {
-	ArrayList<function> operations = new ArrayList<function>(); // All allowed operations for the search
+	ArrayList<Function> operations = new ArrayList<Function>(); // All allowed operations for the search
 	
-	public int Add(int input, int num){ // Math functions, all return int
+	public int Add(int input, int num){ // Math Functions, all return int
 		return input + num;
 	}
 	public int Sub(int input, int num){
@@ -23,20 +23,23 @@ public class AIMath {
 	}
 	
 	public void AddOp(int operation, int num){ // Adds operations to allowed operations
-		operations.add(new function(operation, num));
+		operations.add(new Function(operation, num));
 	}
-	public void AddOps(ArrayList<function> opList){
+	public void AddOps(ArrayList<Function> opList){
 		operations = opList;
 	}
-	public function returnOp(int num){ // Returns operation at num
+	public Function returnOp(int num){ // Returns operation at num
 		return operations.get(num);
 	}
+	public int Size(){
+		return operations.size();
+	}
 	public int Op(int num, int input){ // Returns value of operation at num
-		function op = operations.get(num); // Get operation at num
-		int func = op.getFunc(); // get function
+		Function op = operations.get(num); // Get operation at num
+		int func = op.getFunc(); // get Function
 		int opNum = op.getNum(); // get num for operation
 		
-		switch(func){ // return appropriate math function
+		switch(func){ // return appropriate math Function
 		case 0:
 			return Add(input, opNum);
 		case 1:
@@ -48,15 +51,15 @@ public class AIMath {
 		case 4:
 			return Exp(input, opNum);
 		}
-		return -999999999;	// No operation at num
+		return -999999999;	// No operation at num or function value outside 0-4
 	}
 }
 
-class function {
+class Function {
 	private int func; // 0 = add, 1 = sub, 2 = mul, 3 = div, 4 = exp
-	private int num; // number for functions
+	private int num; // number for Functions
 	
-	public function(int input_func, int input_num){
+	public Function(int input_func, int input_num){
 		func = input_func;
 		num = input_num;
 	}

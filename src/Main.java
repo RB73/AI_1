@@ -22,7 +22,7 @@ public class Main {
     public static int targetNum;
     public static long timeLimit;
     public static ArrayList<String> operations = new ArrayList<String>();
-    public static ArrayList<function> funs = new ArrayList<function>();
+    public static ArrayList<Function> funs = new ArrayList<Function>();
     public static long startTime; //in milliseconds
   
 
@@ -61,7 +61,7 @@ public class Main {
 	    for(int i = 4; i < inputList.size(); i++){
 	    	operations.add(inputList.get(i));
 	    }
-	    //convert the list of operations to list of functions
+	    //convert the list of operations to list of Functions
 	    funs = operationsToFunctions(operations);
 	    
 	    // Create AIMath object, add operations list to it
@@ -83,11 +83,11 @@ public class Main {
 	
 	
 	/*
-	 * A function that takes a list of operations as strings and translates them to list of functions
+	 * A Function that takes a list of operations as strings and translates them to list of Functions
 	 */
-	public static ArrayList<function> operationsToFunctions(ArrayList<String> ops){
+	public static ArrayList<Function> operationsToFunctions(ArrayList<String> ops){
 		//initialize variables
-		ArrayList<function> funcs = new ArrayList<function>();
+		ArrayList<Function> funcs = new ArrayList<Function>();
 		char funcChar;
 		int funcNum = 0;
 		int inputNum = 0; 
@@ -96,7 +96,7 @@ public class Main {
 			funcChar = ops.get(i).charAt(0);//gets the first character of the operation which is the operator character, i.e (+,-,*...)
 			inputNum = Integer.parseInt(ops.get(i).substring(1)); //gets the number that follows the operator and stores it into an integer
 			
-			//find the function number corresponding to each operator
+			//find the Function number corresponding to each operator
 			// 0 = add, 1 = sub, 2 = mul, 3 = div, 4 = exp
 			switch(funcChar){	
 			case '+':
@@ -110,12 +110,12 @@ public class Main {
 			case '^':
 				funcNum = 4;
 			}
-		//create a function
-		function fun = new function (funcNum, inputNum);
-		//add it to the list of functions
+		//create a Function
+		Function fun = new Function (funcNum, inputNum);
+		//add it to the list of Functions
 		funcs.add(fun);
 		}
-		//return the list of functions when done
+		//return the list of Functions when done
 		return funcs;
 	}
 
