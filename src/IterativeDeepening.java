@@ -8,13 +8,15 @@ public class IterativeDeepening {
     private AIMath math;
     private int start;
     private int goal;
+    private int best;
     private int branchingFactor;
     private int nodesExpanded;
     private long timeLimit;
     private long startTime;
 
-    private static int NOT_FOUND = -1;
-    private static int TIMEOUT = -2;
+    private static int NOT_FOUND = Integer.MIN_VALUE;
+    private static int TIMEOUT = Integer.MIN_VALUE + 1;
+    private static int BEST_FOUND = Integer.MIN_VALUE + 2;
 
 
     private ArrayList<Integer> goalOperations;
@@ -45,14 +47,16 @@ public class IterativeDeepening {
             int result = searchBranch(depth, start);
             if(result == goal){
                 Collections.reverse(goalOperations);
-            	return new Result(depth, nodesExpanded, goalOperations, System.currentTimeMillis() - startTime);
+            	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
-            if(result == TIMEOUT)
+            if(result == TIMEOUT){
                 done = true;
+            }
+
             else depth ++;
         }
         
-        return null; // timeout
+        return new Result(best, nodesExpanded, depth, goalOperations, timeLimit); // timeout
     }
 
     //referenced pseudo code on wikipedia https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
@@ -78,13 +82,24 @@ public class IterativeDeepening {
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
 
                 if(result == goal){
-                    goalOperations.add(i);
+                    goalOperations.add(depth - 1, i);
                     return result;
                 }
                 if(result == TIMEOUT)
-                	return TIMEOUT;
+                    return TIMEOUT;
+
+                if(result == BEST_FOUND){
+                    goalOperations.add(depth - 1, i);
+                    return BEST_FOUND;
+                }
+
             }
-        
+        if(Math.abs(best - goal) < Math.abs(node - goal)){
+            best = node;
+            return BEST_FOUND;
+        }
+
+
         return NOT_FOUND; // didn't find goal
     }
 

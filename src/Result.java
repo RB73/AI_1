@@ -2,12 +2,14 @@ import java.util.ArrayList;
 
 public class Result {
 
-    int nodesExpanded;
-    int depth;
-    ArrayList<Integer> operations;	// sequence of indexes for operations leading to the goal value
-    long searchTime;
+    private int best;
+    private int nodesExpanded;
+    private int depth;
+    private ArrayList<Integer> operations;	// sequence of indexes for operations leading to the goal value
+    private long searchTime;
 
-    public Result(int nodesExpanded, int depth, ArrayList<Integer> operations, long searchTime){
+    public Result(int best, int nodesExpanded, int depth, ArrayList<Integer> operations, long searchTime){
+        this.best = best;
         this.nodesExpanded = nodesExpanded;
         this.depth = depth;
         this.operations = operations;
@@ -48,5 +50,12 @@ public class Result {
     public void setSearchTime(long searchTime) {
         this.searchTime = searchTime;
     }
-    
+
+    public int getBest() {
+        return best;
+    }
+
+    public void setBest(int best) {
+        this.best = best;
+    }
 }
