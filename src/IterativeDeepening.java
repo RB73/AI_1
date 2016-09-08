@@ -82,6 +82,8 @@ public class IterativeDeepening {
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
 
                 if(result == goal){
+                    if(goalOperations.size() - (depth - 1) >= 0)
+                        goalOperations.remove(depth - 1);
                     goalOperations.add(depth - 1, i);
                     return result;
                 }
@@ -89,6 +91,8 @@ public class IterativeDeepening {
                     return TIMEOUT;
 
                 if(result == BEST_FOUND){
+                    if(goalOperations.size() - (depth - 1) >= 0)
+                        goalOperations.remove(depth - 1);
                     goalOperations.add(depth - 1, i);
                     return BEST_FOUND;
                 }
