@@ -48,7 +48,6 @@ public class IterativeDeepening {
         boolean done = false;
         int depth = 0;
         nodesExpanded = 0;
-        System.out.println("Branches: " + branchingFactor);
         while(!done){	// runs the search infinitely, with increasing depth
             int result = searchBranch(depth, start);
             if(result == goal){
@@ -64,7 +63,6 @@ public class IterativeDeepening {
         }
         
         Collections.reverse(bestOperations);
-        //System.out.println("Size of Best OP: "   );
         return new Result(best, nodesExpanded, depth, bestOperations, timeLimit); // timeout
     }
 
@@ -89,8 +87,6 @@ public class IterativeDeepening {
         // recursive loop until leaf end or solution is found
         if(depth > 0)
             for(int i = 0; i < branchingFactor; i++){
-            	//System.out.println("Current Branch = " + i);
-            	//System.out.println("Current BranchingFactor = " + branchingFactor);
             	
             	if(currentOperations.size() - (depth) >=0){
             		currentOperations.remove(depth-1);
@@ -118,7 +114,6 @@ public class IterativeDeepening {
         double currentError = Math.abs(node - goal);
         if(bestError > currentError && currentError > Integer.MIN_VALUE){
             best = node;
-            System.out.println("BEST: " + best);
             bestOperations = new ArrayList<Integer>();
             for(int i =0; i<currentOperations.size(); i++){
             	bestOperations.add(currentOperations.get(i));

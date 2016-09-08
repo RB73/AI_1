@@ -78,14 +78,12 @@ public class Main {
 	    if(searchType.equals("iterative")){ 	
 	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = itr.runSearch();
-	    	//System.out.println("done searching");
 		    printOutput(result, Math, targetNum);
 
 	    }
 	    else if(searchType.equals("greedy")){
 	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = grd.runSearch();
-	    	//System.out.println("done searching*****************************************************************************");
 		    printOutput(result, Math, targetNum);
 	    }
 	    
@@ -150,8 +148,6 @@ public class Main {
 		String currentStr;
 		String toPrint;
 		//Print the operations
-		System.out.println("size of operations");
-		System.out.println(res.getOperations().size());
 		for(int i = 0; i < res.getOperations().size(); i++){
 			currentStr = Integer.toString(current) + getOpFromIndex(res.getOperations().get(i));
 			next = math.Op((int) res.getOperations().get(i),current);
@@ -160,7 +156,8 @@ public class Main {
 			current = next;
 		}
 		int error = Math.abs(current - target);
-		System.out.println(res.getBest());
+		//System.out.println(res.getBest());
+		System.out.println("");
 		System.out.println("Error = " + error);
 		System.out.println("Number of steps required: " + res.getOperations().size());//TODO find what the steps required entitles
 		double doneTime = (double)res.getSearchTime()/1000.0;
