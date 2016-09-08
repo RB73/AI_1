@@ -69,22 +69,21 @@ public class Main {
 	    Math.AddOps(funs);
 	    Result result;
 	    
-	    IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
-	    System.out.println("Producing Results");
-	    result = itr.runSearch();
-	    System.out.println("Prinitng");
-	    printOutput(result, Math, targetNum);
-	    System.out.println("DONE");
-	    //Choose which search to run and run it
-	    /*
-	     * while((System.currentTimeMillis() - startTime) < timeLimit || result found){
-	     * search
-	     * }
-	     * return result
-	     * 
-	     */
+	    if(searchType.equals("iterative")){ 	
+	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
+	    	result = itr.runSearch();
+	    	System.out.println("done searching");
+		    printOutput(result, Math, targetNum);
+
+	    }
+	    else if(searchType.equals("greedy")){
+	    	
+	    }
 	    
-	
+	    System.out.println("DONE");
+	   
+
+		
 	}
 	
 	
@@ -108,14 +107,21 @@ public class Main {
 			switch(funcChar){	
 			case '+':
 				funcNum = 0;
+				break;
 			case '-':
 				funcNum = 1;
+				break;
 			case '*':
 				funcNum = 2;
+				break;
 			case '/':
 				funcNum = 3;
+				break;
 			case '^':
 				funcNum = 4;
+				break;
+			default:
+				throw new RuntimeException("Unknown function " + funcChar);
 			}
 		//create a Function
 		Function fun = new Function (funcNum, inputNum);
@@ -126,6 +132,8 @@ public class Main {
 		return funcs;
 	}
 	
+	
+	// A function to print the final results, 
 	public static void printOutput(Result res, AIMath math, int target){
 		
 		int current = startNum;
@@ -133,6 +141,8 @@ public class Main {
 		String currentStr;
 		String toPrint;
 		//Print the operations
+		System.out.println("size of operations");
+		System.out.println(res.operations.size());
 		for(int i = 0; i < res.operations.size(); i++){
 			currentStr = Integer.toString(current) + getOpFromIndex(res.operations.get(i));
 			next = math.Op((int) res.operations.get(i),current);
@@ -144,7 +154,7 @@ public class Main {
 		System.out.println("Error = " + error);
 		System.out.println("Number of steps required: " );//TODO find what the steps required entitles
 		
-		System.out.println("Search required: " + res.searchTime + "seconds");
+		System.out.println("Search required: " + res.searchTime + " seconds");
 		System.out.println("Nodes expanded: " + res.nodesExpanded);
 		System.out.println("Maximum search depth: " + res.depth);
 		

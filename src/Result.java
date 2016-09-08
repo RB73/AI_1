@@ -45,7 +45,7 @@ public class Result {
         return searchTime;
     }
 
-    public void setSearchTime(int searchTime) {
+    public void setSearchTime(long searchTime) {
         this.searchTime = searchTime;
     }
     
