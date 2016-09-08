@@ -28,9 +28,7 @@ public class Main {
 
     
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("STARTING");
-		startTime = System.currentTimeMillis();//initialize the timer when the program starts
-		
+
 		/*uncomment this to read from file, and comment out the sample list
 		
 		//read in the input from a text file given through command line, and add the inputs to an array list
@@ -43,12 +41,12 @@ public class Main {
 	    */
 		
 	    // sample list of inputs, change it for different testing  purposes. 
-		inputList.add(0, "iterative");//search type
+		inputList.add(0, "greedy");//search type
 		inputList.add(1, "2"); 		  //initial number
 		inputList.add(2, "9");		  //target number
-		inputList.add(3, "3.5");      //time limit in seconds
+		inputList.add(3, "0.1");      //time limit in seconds
 		inputList.add(4, "+4");       //list of operations
-		inputList.add(5, "-1");       //.
+		inputList.add(5, "-2");       //.
 		inputList.add(6, "*3");       //.
 		inputList.add(7, "^3"); 	  //.
 		
@@ -64,6 +62,10 @@ public class Main {
 	    //convert the list of operations to list of Functions
 	    funs = operationsToFunctions(inputOperations);
 	    
+	    
+		System.out.println("STARTING");
+		startTime = System.currentTimeMillis();//initialize the timer when the program starts
+		
 	    // Create AIMath object, add operations list to it
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
@@ -77,7 +79,10 @@ public class Main {
 
 	    }
 	    else if(searchType.equals("greedy")){
-	    	
+	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
+	    	result = grd.runSearch();
+	    	System.out.println("done searching*****************************************************************************");
+		    printOutput(result, Math, targetNum);
 	    }
 	    
 	    System.out.println("DONE");
@@ -153,8 +158,8 @@ public class Main {
 		int error = Math.abs(current - target);
 		System.out.println("Error = " + error);
 		System.out.println("Number of steps required: " );//TODO find what the steps required entitles
-		
-		System.out.println("Search required: " + res.searchTime + " seconds");
+		double doneTime = (double)res.searchTime/1000.0;
+		System.out.println("Search required: " + doneTime + " seconds");
 		System.out.println("Nodes expanded: " + res.nodesExpanded);
 		System.out.println("Maximum search depth: " + res.depth);
 		

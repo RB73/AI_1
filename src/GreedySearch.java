@@ -40,7 +40,7 @@ public class GreedySearch {
 		result.setSearchTime((int)(currentTime - startTime));
 		
 		// IF GOAL REACHED or NO TIME
-		while(nodes[best]!= goal && currentTime - startTime <= timeLimit){
+		while(nodes[best]!= goal && currentTime - startTime < timeLimit){
 //			System.out.println("Current val is: " + currentVal);
 //			System.out.println("Best node is: " + best);
 
