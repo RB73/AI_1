@@ -28,7 +28,7 @@ public class Main {
 
     
 	public static void main(String[] args) throws FileNotFoundException {
-		
+		System.out.println("STARTING");
 		startTime = System.currentTimeMillis();//initialize the timer when the program starts
 		
 		/*uncomment this to read from file, and comment out the sample list
@@ -48,7 +48,7 @@ public class Main {
 		inputList.add(2, "9");		  //target number
 		inputList.add(3, "3.5");      //time limit in seconds
 		inputList.add(4, "+4");       //list of operations
-		inputList.add(5, "-2");       //.
+		inputList.add(5, "-1");       //.
 		inputList.add(6, "*3");       //.
 		inputList.add(7, "^3"); 	  //.
 		
@@ -67,9 +67,14 @@ public class Main {
 	    // Create AIMath object, add operations list to it
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
+	    Result result;
 	    
-	    
-	    
+	    IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
+	    System.out.println("Producing Results");
+	    result = itr.runSearch();
+	    System.out.println("Prinitng");
+	    printOutput(result, Math, targetNum);
+	    System.out.println("DONE");
 	    //Choose which search to run and run it
 	    /*
 	     * while((System.currentTimeMillis() - startTime) < timeLimit || result found){
@@ -121,11 +126,13 @@ public class Main {
 		return funcs;
 	}
 	
-	public void printOutput(Result res, AIMath math){
+	public static void printOutput(Result res, AIMath math, int target){
+		
 		int current = startNum;
 		int next; 
 		String currentStr;
 		String toPrint;
+		//Print the operations
 		for(int i = 0; i < res.operations.size(); i++){
 			currentStr = Integer.toString(current) + getOpFromIndex(res.operations.get(i));
 			next = math.Op((int) res.operations.get(i),current);
@@ -133,9 +140,18 @@ public class Main {
 			System.out.println(toPrint);
 			current = next;
 		}
+		int error = Math.abs(current - target);
+		System.out.println("Error = " + error);
+		System.out.println("Number of steps required: " );//TODO find what the steps required entitles
+		
+		System.out.println("Search required: " + res.searchTime + "seconds");
+		System.out.println("Nodes expanded: " + res.nodesExpanded);
+		System.out.println("Maximum search depth: " + res.depth);
+		
 		
 	}
-	public String getOpFromIndex(int index){
+	
+	public static String getOpFromIndex(int index){
 		return inputOperations.get(index);
 	}
 

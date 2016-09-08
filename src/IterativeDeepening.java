@@ -60,6 +60,7 @@ public class IterativeDeepening {
     	
         int result;
         long currentTime = System.currentTimeMillis();
+
         if(currentTime - startTime > timeLimit)
         	return -2;
 
