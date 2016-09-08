@@ -22,7 +22,9 @@ public class IterativeDeepening {
 
 
     private ArrayList<Integer> goalOperations;
-
+    private ArrayList<Integer> currentOperations;
+    private ArrayList<Integer> bestOperations;
+    
     /**
      * Constructor
      */
@@ -31,6 +33,8 @@ public class IterativeDeepening {
         this.start = start;
         this.goal = goal;
         goalOperations = new ArrayList<Integer>();
+        currentOperations = new ArrayList<Integer>();
+
         branchingFactor = math.Size();
         this.timeLimit = timeLimit;
         this.startTime = startTime;
@@ -44,7 +48,7 @@ public class IterativeDeepening {
         boolean done = false;
         int depth = 0;
         nodesExpanded = 0;
-
+        System.out.println("Branches: " + branchingFactor);
         while(!done){	// runs the search infinitely, with increasing depth
             int result = searchBranch(depth, start);
             if(result == goal){
@@ -59,7 +63,9 @@ public class IterativeDeepening {
             else depth ++;
         }
         
-        return new Result(best, nodesExpanded, depth, goalOperations, timeLimit); // timeout
+        Collections.reverse(bestOperations);
+        //System.out.println("Size of Best OP: "   );
+        return new Result(best, nodesExpanded, depth, bestOperations, timeLimit); // timeout
     }
 
     //referenced pseudo code on wikipedia https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
@@ -83,33 +89,40 @@ public class IterativeDeepening {
         // recursive loop until leaf end or solution is found
         if(depth > 0)
             for(int i = 0; i < branchingFactor; i++){
+            	//System.out.println("Current Branch = " + i);
+            	//System.out.println("Current BranchingFactor = " + branchingFactor);
+            	
+            	if(currentOperations.size() - (depth) >=0){
+            		currentOperations.remove(depth-1);
+            	}
+                currentOperations.add(depth - 1, i);
+            	
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
-
+               
                 if(result == goal){
                 	if(goalOperations.size() - (depth) >=0){
                 		goalOperations.remove(depth-1);
                 	}
                     goalOperations.add(depth - 1, i);
+          
                     return result;
                 }
                 if(result == TIMEOUT)
                     return TIMEOUT;
 
-                if(result == BEST_FOUND){
-                	//System.out.println(depth);
-                	if(goalOperations.size() - (depth) >=0){
-                		goalOperations.remove(depth-1);
-                	}
-                    goalOperations.add(depth - 1, i);
-                    return BEST_FOUND;
-                }
+             
 
             }
+        
         double bestError = Math.abs(best - goal);
         double currentError = Math.abs(node - goal);
         if(bestError > currentError && currentError > Integer.MIN_VALUE){
             best = node;
             System.out.println("BEST: " + best);
+            bestOperations = new ArrayList<Integer>();
+            for(int i =0; i<currentOperations.size(); i++){
+            	bestOperations.add(currentOperations.get(i));
+            }
             return BEST_FOUND;
         }
 
