@@ -47,6 +47,7 @@ public class IterativeDeepening {
             int result = searchBranch(depth, start);
             if(result == goal){
                 Collections.reverse(goalOperations);
+
             	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
             if(result == TIMEOUT){
@@ -71,6 +72,7 @@ public class IterativeDeepening {
         int result;
 
         long currentTime = System.currentTimeMillis();
+
         if(currentTime - startTime > timeLimit)         // timeout case
         	return TIMEOUT;
         if(depth == 0 && node == goal)	                // success case
@@ -82,8 +84,11 @@ public class IterativeDeepening {
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
 
                 if(result == goal){
-                    if(goalOperations.size() - (depth - 1) >= 0)
-                        goalOperations.remove(depth - 1);
+
+                	if(goalOperations.size() - (depth) >=0){
+                		goalOperations.remove(depth-1);
+                	}
+
                     goalOperations.add(depth - 1, i);
                     return result;
                 }
@@ -91,15 +96,24 @@ public class IterativeDeepening {
                     return TIMEOUT;
 
                 if(result == BEST_FOUND){
-                    if(goalOperations.size() - (depth - 1) >= 0)
-                        goalOperations.remove(depth - 1);
+
+
+
+                	//System.out.println(depth);
+                	if(goalOperations.size() - (depth) >=0){
+                		goalOperations.remove(depth-1);
+                	}
+
                     goalOperations.add(depth - 1, i);
                     return BEST_FOUND;
                 }
 
             }
-        if(Math.abs(best - goal) < Math.abs(node - goal)){
+        double bestError = Math.abs(best - goal);
+        double currentError = Math.abs(node - goal);
+        if(bestError > currentError && currentError > Integer.MIN_VALUE){
             best = node;
+            System.out.println("BEST: " + best);
             return BEST_FOUND;
         }
 

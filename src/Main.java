@@ -21,16 +21,14 @@ public class Main {
     public static int startNum;
     public static int targetNum;
     public static long timeLimit;
-    public static ArrayList<String> operations = new ArrayList<String>();
+    public static ArrayList<String> inputOperations = new ArrayList<String>();
     public static ArrayList<Function> funs = new ArrayList<Function>();
     public static long startTime; //in milliseconds
   
 
     
 	public static void main(String[] args) throws FileNotFoundException {
-		
-		startTime = System.currentTimeMillis();//initialize the timer when the program starts
-		
+
 		/*uncomment this to read from file, and comment out the sample list
 		
 		//read in the input from a text file given through command line, and add the inputs to an array list
@@ -45,10 +43,10 @@ public class Main {
 	    // sample list of inputs, change it for different testing  purposes. 
 		inputList.add(0, "iterative");//search type
 		inputList.add(1, "2"); 		  //initial number
-		inputList.add(2, "9");		  //target number
-		inputList.add(3, "3.5");      //time limit in seconds
+		inputList.add(2, "37");		  //target number
+		inputList.add(3, "3");      //time limit in seconds
 		inputList.add(4, "+4");       //list of operations
-		inputList.add(5, "-2");       //.
+		inputList.add(5, "-1");       //.
 		inputList.add(6, "*3");       //.
 		inputList.add(7, "^3"); 	  //.
 		
@@ -59,27 +57,38 @@ public class Main {
 	    targetNum = Integer.parseInt(inputList.get(2));
 	    timeLimit = (long)(Double.parseDouble(inputList.get(3))*1000); //in milliseconds
 	    for(int i = 4; i < inputList.size(); i++){
-	    	operations.add(inputList.get(i));
+	    	inputOperations.add(inputList.get(i));
 	    }
 	    //convert the list of operations to list of Functions
-	    funs = operationsToFunctions(operations);
+	    funs = operationsToFunctions(inputOperations);
 	    
+	    
+		System.out.println("STARTING");
+		startTime = System.currentTimeMillis();//initialize the timer when the program starts
+		
 	    // Create AIMath object, add operations list to it
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
+	    Result result;
 	    
-	    //Choose which search to run and run it
-	    /*
-	     * while((System.currentTimeMillis() - startTime) < timeLimit || result found){
-	     * search
-	     * }
-	     * return result
-	     * 
-	     */
+	    if(searchType.equals("iterative")){ 	
+	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
+	    	result = itr.runSearch();
+	    	//System.out.println("done searching");
+		    printOutput(result, Math, targetNum);
 
-		(new IterativeDeepening(Math, 2, 9, timeLimit, startTime)).runSearch();
+	    }
+	    else if(searchType.equals("greedy")){
+	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
+	    	result = grd.runSearch();
+	    	//System.out.println("done searching*****************************************************************************");
+		    printOutput(result, Math, targetNum);
+	    }
 	    
-	
+	    System.out.println("DONE");
+	   
+
+		
 	}
 	
 	
@@ -126,6 +135,40 @@ public class Main {
 		}
 		//return the list of Functions when done
 		return funcs;
+	}
+	
+	
+	// A function to print the final results, 
+	public static void printOutput(Result res, AIMath math, int target){
+		
+		int current = startNum;
+		int next; 
+		String currentStr;
+		String toPrint;
+		//Print the operations
+		System.out.println("size of operations");
+		System.out.println(res.getOperations().size());
+		for(int i = 0; i < res.getOperations().size(); i++){
+			currentStr = Integer.toString(current) + getOpFromIndex(res.getOperations().get(i));
+			next = math.Op((int) res.getOperations().get(i),current);
+			toPrint = currentStr + "=" + Integer.toString(next);
+			System.out.println(toPrint);
+			current = next;
+		}
+		int error = Math.abs(current - target);
+		System.out.println(res.getBest());
+		System.out.println("Error = " + error);
+		System.out.println("Number of steps required: " + res.getOperations().size());//TODO find what the steps required entitles
+		double doneTime = (double)res.getSearchTime()/1000.0;
+		System.out.println("Search required: " + doneTime + " seconds");
+		System.out.println("Nodes expanded: " + res.getNodesExpanded());
+		System.out.println("Maximum search depth: " + res.getDepth());
+		
+		
+	}
+	
+	public static String getOpFromIndex(int index){
+		return inputOperations.get(index);
 	}
 
 }
