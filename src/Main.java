@@ -76,6 +76,8 @@ public class Main {
 	     * return result
 	     * 
 	     */
+
+		(new IterativeDeepening(Math, 2, 9, timeLimit, startTime)).runSearch();
 	    
 	
 	}
@@ -101,14 +103,21 @@ public class Main {
 			switch(funcChar){	
 			case '+':
 				funcNum = 0;
+				break;
 			case '-':
 				funcNum = 1;
+				break;
 			case '*':
 				funcNum = 2;
+				break;
 			case '/':
 				funcNum = 3;
+				break;
 			case '^':
 				funcNum = 4;
+				break;
+			default:
+				throw new RuntimeException("Unknown function " + funcChar);
 			}
 		//create a Function
 		Function fun = new Function (funcNum, inputNum);

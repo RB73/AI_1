@@ -1,19 +1,23 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class IterativeDeepening {
 
 
-    AIMath math;
-    int start;
-    int goal;
-    int branchingFactor;
-    int nodesExpanded;
-    long timeLimit;
-    long startTime;
-    
+    private AIMath math;
+    private int start;
+    private int goal;
+    private int branchingFactor;
+    private int nodesExpanded;
+    private long timeLimit;
+    private long startTime;
 
-    ArrayList<Integer> goalOperations;
+    private static int NOT_FOUND = -1;
+    private static int TIMEOUT = -2;
+
+
+    private ArrayList<Integer> goalOperations;
 
     /**
      * Constructor
@@ -30,7 +34,7 @@ public class IterativeDeepening {
 
     /**
      * Runs search once 
-     * @return	meta-data about the search 
+     * @return	meta-data about the search OR null if timeout
      */
     public Result runSearch(){
         boolean done = false;
@@ -38,14 +42,17 @@ public class IterativeDeepening {
         nodesExpanded = 0;
 
         while(!done){	// runs the search infinitely, with increasing depth
-            if(searchBranch(depth, start) == goal){
+            int result = searchBranch(depth, start);
+            if(result == goal){
+                Collections.reverse(goalOperations);
             	return new Result(depth, nodesExpanded, goalOperations, System.currentTimeMillis() - startTime);
             }
-                
-            depth ++;
+            if(result == TIMEOUT)
+                done = true;
+            else depth ++;
         }
         
-        return null; // shouldn't happen due to timeouts
+        return null; // timeout
     }
 
     //referenced pseudo code on wikipedia https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
@@ -55,30 +62,30 @@ public class IterativeDeepening {
      * @param node	current node
      * @return		value of goal if goal is reached; -1 otherwise; -2 if time limit
      */
-    public int searchBranch(int depth, int node){ 
+    public int searchBranch(int depth, int node){
     	nodesExpanded++;
-    	
         int result;
-        long currentTime = System.currentTimeMillis();
-        if(currentTime - startTime > timeLimit)
-        	return -2;
 
-        if(depth == 0 && node == goal)	// success case
+        long currentTime = System.currentTimeMillis();
+        if(currentTime - startTime > timeLimit)         // timeout case
+        	return TIMEOUT;
+        if(depth == 0 && node == goal)	                // success case
             return node;
 
         // recursive loop until leaf end or solution is found
         if(depth > 0)
             for(int i = 0; i < branchingFactor; i++){
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
+
                 if(result == goal){
-                    goalOperations.add(depth - 1, i);   // adds current operation to final sequence
+                    goalOperations.add(i);
                     return result;
                 }
-                if(result == -2)
-                	return -2;
+                if(result == TIMEOUT)
+                	return TIMEOUT;
             }
         
-        return -1; // didn't find goal
+        return NOT_FOUND; // didn't find goal
     }
 
 }
