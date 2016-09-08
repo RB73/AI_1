@@ -41,12 +41,12 @@ public class Main {
 	    */
 		
 	    // sample list of inputs, change it for different testing  purposes. 
-		inputList.add(0, "greedy");//search type
+		inputList.add(0, "iterative");//search type
 		inputList.add(1, "2"); 		  //initial number
 		inputList.add(2, "37");		  //target number
-		inputList.add(3, "0.1");      //time limit in seconds
+		inputList.add(3, "3");      //time limit in seconds
 		inputList.add(4, "+4");       //list of operations
-		inputList.add(5, "-2");       //.
+		inputList.add(5, "-1");       //.
 		inputList.add(6, "*3");       //.
 		inputList.add(7, "^3"); 	  //.
 		
@@ -74,14 +74,14 @@ public class Main {
 	    if(searchType.equals("iterative")){ 	
 	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = itr.runSearch();
-	    	System.out.println("done searching");
+	    	//System.out.println("done searching");
 		    printOutput(result, Math, targetNum);
 
 	    }
 	    else if(searchType.equals("greedy")){
 	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = grd.runSearch();
-	    	System.out.println("done searching*****************************************************************************");
+	    	//System.out.println("done searching*****************************************************************************");
 		    printOutput(result, Math, targetNum);
 	    }
 	    
@@ -147,21 +147,22 @@ public class Main {
 		String toPrint;
 		//Print the operations
 		System.out.println("size of operations");
-		System.out.println(res.operations.size());
-		for(int i = 0; i < res.operations.size(); i++){
-			currentStr = Integer.toString(current) + getOpFromIndex(res.operations.get(i));
-			next = math.Op((int) res.operations.get(i),current);
+		System.out.println(res.getOperations().size());
+		for(int i = 0; i < res.getOperations().size(); i++){
+			currentStr = Integer.toString(current) + getOpFromIndex(res.getOperations().get(i));
+			next = math.Op((int) res.getOperations().get(i),current);
 			toPrint = currentStr + "=" + Integer.toString(next);
 			System.out.println(toPrint);
 			current = next;
 		}
 		int error = Math.abs(current - target);
+		System.out.println(res.getBest());
 		System.out.println("Error = " + error);
-		System.out.println("Number of steps required: " + res.operations.size());//TODO find what the steps required entitles
-		double doneTime = (double)res.searchTime/1000.0;
+		System.out.println("Number of steps required: " + res.getOperations().size());//TODO find what the steps required entitles
+		double doneTime = (double)res.getSearchTime()/1000.0;
 		System.out.println("Search required: " + doneTime + " seconds");
-		System.out.println("Nodes expanded: " + res.nodesExpanded);
-		System.out.println("Maximum search depth: " + res.depth);
+		System.out.println("Nodes expanded: " + res.getNodesExpanded());
+		System.out.println("Maximum search depth: " + res.getDepth());
 		
 		
 	}

@@ -21,7 +21,7 @@ public class GreedySearch {
         this.timeLimit = timeLimit;
         operationSequence = new ArrayList<Integer>();
         branchFactor = math.operations.size();  
-        result = new Result(0, 0, operationSequence, 0);
+        result = new Result(currentVal, 0, 0, operationSequence, 0);
 
     }
     
@@ -60,7 +60,7 @@ public class GreedySearch {
 			result.setOperations(operationSequence);
 			result.setDepth(result.getDepth()+1);
 			result.setNodesExpanded(result.getNodesExpanded()+1);
-			
+			result.setBest(currentVal);
 			// UPDATE TIME
 			currentTime = System.currentTimeMillis();
 			result.setSearchTime((int)(currentTime - startTime));
