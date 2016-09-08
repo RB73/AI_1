@@ -43,7 +43,7 @@ public class Main {
 	    // sample list of inputs, change it for different testing  purposes. 
 		inputList.add(0, "greedy");//search type
 		inputList.add(1, "2"); 		  //initial number
-		inputList.add(2, "9");		  //target number
+		inputList.add(2, "37");		  //target number
 		inputList.add(3, "0.1");      //time limit in seconds
 		inputList.add(4, "+4");       //list of operations
 		inputList.add(5, "-2");       //.
@@ -157,7 +157,7 @@ public class Main {
 		}
 		int error = Math.abs(current - target);
 		System.out.println("Error = " + error);
-		System.out.println("Number of steps required: " );//TODO find what the steps required entitles
+		System.out.println("Number of steps required: " + res.operations.size());//TODO find what the steps required entitles
 		double doneTime = (double)res.searchTime/1000.0;
 		System.out.println("Search required: " + doneTime + " seconds");
 		System.out.println("Nodes expanded: " + res.nodesExpanded);

@@ -45,7 +45,7 @@ public class IterativeDeepening {
             int result = searchBranch(depth, start);
             if(result == goal){
                 Collections.reverse(goalOperations);
-            	return new Result(depth, nodesExpanded, goalOperations, System.currentTimeMillis() - startTime);
+            	return new Result(nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
             if(result == TIMEOUT)
                 done = true;
