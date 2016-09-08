@@ -1,4 +1,6 @@
+package AIPack1;
 import java.util.*;
+import AIPack1.*;
 public class GreedySearch {
 	
     AIMath AImath;

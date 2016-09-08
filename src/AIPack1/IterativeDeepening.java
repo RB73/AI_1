@@ -1,6 +1,8 @@
+package AIPack1;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import AIPack1.*;
 
 public class IterativeDeepening {
 

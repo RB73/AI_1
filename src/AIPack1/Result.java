@@ -1,5 +1,6 @@
+package AIPack1;
 import java.util.ArrayList;
-
+import AIPack1.*;
 public class Result {
 
     private int best;

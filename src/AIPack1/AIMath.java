@@ -1,4 +1,6 @@
+package AIPack1;
 import java.util.ArrayList;
+import AIPack1.*;
 
 public class AIMath {
 	ArrayList<Function> operations = new ArrayList<Function>(); // All allowed operations for the search
