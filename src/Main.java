@@ -32,25 +32,25 @@ public class Main {
 		//uncomment this to read from file, and comment out the sample list
 		
 		//read in the input from a text file given through command line, and add the inputs to an array list
-	    Scanner scn = new Scanner(System.in);
-	    while (scn.hasNext()){
-	        inputList.add(scn.next());
-	    }
-	    scn.close();
-	    
+//	    Scanner scn = new Scanner(System.in);
+//	    while (scn.hasNext()){
+//	        inputList.add(scn.next());
+//	    }
+//	    scn.close();
+//
 
 		
-//	    // sample list of inputs, change it for different testing  purposes.
-//		inputList.add(0, "iterative");//search type
-//		inputList.add(1, "2"); 		  //initial number
-//		inputList.add(2, "37");		  //target number
-//		inputList.add(3, "3");      //time limit in seconds
-//		inputList.add(4, "+4");       //list of operations
-//		inputList.add(5, "-1");       //.
-//		inputList.add(6, "*3");       //.
-//		inputList.add(7, "^3"); 	  //.
-//
-//
+	    // sample list of inputs, change it for different testing  purposes.
+		inputList.add(0, "iterative");//search type
+		inputList.add(1, "3"); 		  //initial number
+		inputList.add(2, "9");		  //target number
+		inputList.add(3, "3");      //time limit in seconds
+		inputList.add(4, "+1");       //list of operations
+		inputList.add(5, "-1");       //.
+		inputList.add(6, "*2");       //.
+		inputList.add(7, "^3"); 	  //.
+
+
 	    //set the globals with the values from the arguments given in the input list
 	    searchType = inputList.get(0);
 	    startNum = Integer.parseInt(inputList.get(1));

@@ -8,7 +8,7 @@ public class IterativeDeepening {
     private AIMath math;
     private int start;
     private int goal;
-    private int best;
+    private int best;                       // TODO: initialize to like MIN_VALUE
     private int branchingFactor;
     private int nodesExpanded;
     private long timeLimit;
@@ -47,11 +47,10 @@ public class IterativeDeepening {
             int result = searchBranch(depth, start);
             if(result == goal){
                 Collections.reverse(goalOperations);
-
             	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
             if(result == TIMEOUT){
-                done = true;
+//                done = true;
             }
 
             else depth ++;
@@ -73,8 +72,8 @@ public class IterativeDeepening {
 
         long currentTime = System.currentTimeMillis();
 
-        if(currentTime - startTime > timeLimit)         // timeout case
-        	return TIMEOUT;
+//        if(currentTime - startTime > timeLimit)         // timeout case
+//        	return TIMEOUT;
         if(depth == 0 && node == goal)	                // success case
             return node;
 
@@ -96,8 +95,6 @@ public class IterativeDeepening {
                     return TIMEOUT;
 
                 if(result == BEST_FOUND){
-
-
 
                 	//System.out.println(depth);
                 	if(goalOperations.size() - (depth) >=0){
