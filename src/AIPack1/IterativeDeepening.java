@@ -50,15 +50,12 @@ public class IterativeDeepening {
         nodesExpanded = 0;
         while(!done){	// runs the search infinitely, with increasing depth
             int result = searchBranch(depth, start);
-            if(result == goal){
+            if(result == goal){     // found solution, end loop
                 Collections.reverse(goalOperations);
-
             	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
-            if(result == TIMEOUT){
+            if(result == TIMEOUT)  // couldn't find solution in time
                 done = true;
-            }
-
             else depth ++;
         }
         
@@ -88,7 +85,7 @@ public class IterativeDeepening {
         if(depth > 0)
             for(int i = 0; i < branchingFactor; i++){
             	
-            	if(currentOperations.size() - (depth) >=0){
+            	if(currentOperations.size() - (depth) >=0){ // update array with current operations for each path
             		currentOperations.remove(depth-1);
             	}
                 currentOperations.add(depth - 1, i);
@@ -100,22 +97,20 @@ public class IterativeDeepening {
                 		goalOperations.remove(depth-1);
                 	}
                     goalOperations.add(depth - 1, i);
-          
                     return result;
                 }
+
                 if(result == TIMEOUT)
                     return TIMEOUT;
-
-             
-
             }
-        
+
+        // check if current leaf is the current best solution
         double bestError = Math.abs(best - goal);
         double currentError = Math.abs(node - goal);
         if(bestError > currentError && currentError > Integer.MIN_VALUE){
             best = node;
             bestOperations = new ArrayList<Integer>();
-            for(int i =0; i<currentOperations.size(); i++){
+            for(int i = 0; i < currentOperations.size(); i++){
             	bestOperations.add(currentOperations.get(i));
             }
             return BEST_FOUND;

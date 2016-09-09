@@ -8,12 +8,12 @@ import AIPack1.*;
 
 /*
  * To run the program from command line and read inputs from a text and have the output be a text file do the following:
- * go the directory where the java file is located
- * create a text file that have some input , say you called it input.txt
- * compile the program by writing the following in the command line for all the java files:
- * 			javac -d . Main.java 
- * then run the program by writiing the following in the command line:
- * 			java Main <input.txt 
+ * go to the src directory
+ * create a text file that have some input, say you called it input.txt
+ * compile the program by writing the following in the command line:
+ * 			javac -d . *.java
+ * then run the program by writing the following in the command line:
+ * 			java AIPack1.Main < input.txt
  * open the output.txt file and it will contain the result of running the program
  */
 
@@ -32,28 +32,13 @@ public class Main {
     
 	public static void main(String[] args) throws FileNotFoundException {
 
-		//uncomment this to read from file, and comment out the sample list
-		
 		//read in the input from a text file given through command line, and add the inputs to an array list
 	    Scanner scn = new Scanner(System.in);
 	    while (scn.hasNext()){
 	        inputList.add(scn.next());
 	    }
 	    scn.close();
-	    
-	    /*
-		
-	    // sample list of inputs, change it for different testing  purposes. 
-		inputList.add(0, "iterative");//search type
-		inputList.add(1, "2"); 		  //initial number
-		inputList.add(2, "37");		  //target number
-		inputList.add(3, "3");      //time limit in seconds
-		inputList.add(4, "+4");       //list of operations
-		inputList.add(5, "-1");       //.
-		inputList.add(6, "*3");       //.
-		inputList.add(7, "^3"); 	  //.
-		
-		*/
+
 	    
 	    //set the globals with the values from the arguments given in the input list
 	    searchType = inputList.get(0);
@@ -167,7 +152,8 @@ public class Main {
 		
 		
 	}
-	
+
+	// Returns input operations as a string at the given index
 	public static String getOpFromIndex(int index){
 		return inputOperations.get(index);
 	}
