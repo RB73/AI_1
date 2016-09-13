@@ -5,26 +5,26 @@ import AIPack1.*;
 public class AIMath {
 	ArrayList<Function> operations = new ArrayList<Function>(); // All allowed operations for the search
 	
-	public int Add(int input, int num){ // Math Functions, all return int
+	public float Add(float input, float num){ // Math Functions, all return float
 		return input + num;
 	}
-	public int Sub(int input, int num){
+	public float Sub(float input, float num){
 		return input - num;
 	}
-	public int Mul(int input, int num){
+	public float Mul(float input, float num){
 		return input * num;
 	}
-	public int Div(int input, int num){
+	public float Div(float input, float num){
 		return input / num;
 	}
-	public int Exp(int input, int num){
-		return (int) Math.pow(input, num);
+	public float Exp(float input, float num){
+		return (float) Math.pow(input, num);
 	}
 	
 	public AIMath(){ // constructor
 	}
 	
-	public void AddOp(int operation, int num){ // Adds operations to allowed operations
+	public void AddOp(int operation, float num){ // Adds operations to allowed operations
 		operations.add(new Function(operation, num));
 	}
 	public void AddOps(ArrayList<Function> opList){
@@ -33,13 +33,13 @@ public class AIMath {
 	public Function returnOp(int num){ // Returns operation at num
 		return operations.get(num);
 	}
-	public int Size(){ // Returns size of operations list
+	public float Size(){ // Returns size of operations list
 		return operations.size();
 	}
-	public int Op(int num, int input){ // Returns value of operation at num
+	public float Op(int num, float input){ // Returns value of operation at num
 		Function op = operations.get(num); // Get operation at num
 		int func = op.getFunc(); // get Function
-		int opNum = op.getNum(); // get num for operation
+		float opNum = op.getNum(); // get num for operation
 		
 		switch(func){ // return appropriate math Function
 		case 0:
@@ -59,13 +59,13 @@ public class AIMath {
 
 class Function {
 	private int func; // 0 = add, 1 = sub, 2 = mul, 3 = div, 4 = exp
-	private int num; // number for Functions
+	private float num; // number for Functions
 	
-	public Function(int input_func, int input_num){
+	public Function(int input_func, float input_num){
 		func = input_func;
 		num = input_num;
 	}
-	public int getNum(){
+	public float getNum(){
 		return num;
 	}
 	public int getFunc(){

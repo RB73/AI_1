@@ -30,7 +30,7 @@ public class GreedySearch {
     
 	public Result runSearch(){
 		int size = branchFactor;
-		int[] nodes = new int[size];
+		float[] nodes = new float[size];
 //		System.out.println("Current val is: " + currentVal);
 		
 		// Initialize array
@@ -57,7 +57,7 @@ public class GreedySearch {
 			best = findBestNode(nodes, size);
 			
 			// UPDATE DATA
-			currentVal = nodes[best];
+			currentVal = (int) nodes[best];
 			operationSequence.add(best);
 			result.setOperations(operationSequence);
 			result.setDepth(result.getDepth()+1);
@@ -75,9 +75,9 @@ public class GreedySearch {
 	}
 	
 	
-	public int findBestNode(int[] nodes, int size){
+	public int findBestNode(float[] nodes, int size){
 		// array to gold the nodes' distances from goal
-		int[] distance = new int[size];
+		float[] distance = new float[size];
 		
 		// initialize distances from goal
 		for(int i=0; i<size; i++){
@@ -92,7 +92,7 @@ public class GreedySearch {
 		// find the minimum distance from the goal
 		for(int i=0; i<size; i++){
 			if(distance[i]< minDistance){
-				minDistance = distance[i];
+				minDistance = (int)distance[i];
 				bestIndex = i;
 			}
 		}
