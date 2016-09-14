@@ -8,9 +8,9 @@ public class IterativeDeepening {
 
 
     private AIMath math;
-    private int start;
-    private int goal;
-    private int best;
+    private float start;
+    private float goal;
+    private float best;
     private int branchingFactor;
     private int nodesExpanded;
     private long timeLimit;
@@ -28,7 +28,7 @@ public class IterativeDeepening {
     /**
      * Constructor
      */
-    public IterativeDeepening(AIMath math, int start, int goal, long timeLimit, long startTime){
+    public IterativeDeepening(AIMath math, float start, float goal, long timeLimit, long startTime){
         this.math = math;
         this.start = start;
         this.goal = goal;
@@ -49,7 +49,7 @@ public class IterativeDeepening {
         int depth = 0;
         nodesExpanded = 0;
         while(!done){	// runs the search infinitely, with increasing depth
-            int result = searchBranch(depth, start);
+            float result = searchBranch(depth, start);
             if(result == goal){     // found solution, end loop
                 Collections.reverse(goalOperations);
             	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
@@ -70,9 +70,9 @@ public class IterativeDeepening {
      * @param node	current node
      * @return		value of goal if goal is reached; -1 otherwise; -2 if time limit
      */
-    public int searchBranch(int depth, int node){
+    public float searchBranch(int depth, float node){
     	nodesExpanded++;
-        int result;
+        float result;
 
         long currentTime = System.currentTimeMillis();
 

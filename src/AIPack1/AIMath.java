@@ -33,7 +33,7 @@ public class AIMath {
 	public Function returnOp(int num){ // Returns operation at num
 		return operations.get(num);
 	}
-	public float Size(){ // Returns size of operations list
+	public int Size(){ // Returns size of operations list
 		return operations.size();
 	}
 	public float Op(int num, float input){ // Returns value of operation at num

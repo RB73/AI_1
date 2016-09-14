@@ -128,19 +128,19 @@ public class Main {
 	// A function to print the final results, 
 	public static void printOutput(Result res, AIMath math, int target){
 		
-		int current = startNum;
-		int next; 
+		float current = startNum;
+		float next; 
 		String currentStr;
 		String toPrint;
 		//Print the operations
 		for(int i = 0; i < res.getOperations().size(); i++){
-			currentStr = Integer.toString(current) + getOpFromIndex(res.getOperations().get(i));
+			currentStr = Float.toString(current) + getOpFromIndex(res.getOperations().get(i));
 			next = math.Op((int) res.getOperations().get(i),current);
-			toPrint = currentStr + "=" + Integer.toString(next);
+			toPrint = currentStr + "=" + Float.toString(next);
 			System.out.println(toPrint);
 			current = next;
 		}
-		int error = Math.abs(current - target);
+		float error = Math.abs(current - target);
 		//System.out.println(res.getBest());
 		System.out.println("");
 		System.out.println("Error = " + error);
