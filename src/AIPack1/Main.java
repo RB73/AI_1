@@ -18,7 +18,8 @@ import AIPack1.*;
  */
 
 public class Main {
-    
+	public int operationLimit = 30;//the max number of operation creating and recreating the organisms 
+	
 	static ArrayList<String> inputList = new ArrayList<String>();
     public static String searchType;
     public static int startNum;
@@ -79,7 +80,7 @@ public class Main {
 	}
 	
 	
-	
+
 	/*
 	 * A Function that takes a list of operations as strings and translates them to list of Functions
 	 */
@@ -157,5 +158,7 @@ public class Main {
 	public static String getOpFromIndex(int index){
 		return inputOperations.get(index);
 	}
+	
+	
 
 }
