@@ -67,14 +67,26 @@ public class Organism {
 			case 3: // Change operator
 				newOps.set(what2Change, ((int)Math.random())^math.Size());
 		}
-		Organism newOrg = new Organism(start, goal, newOps, math);
+		Organism newOrg = new Organism(start, goal, newOps, math); // Make and return new organism
 		newOrg.calcError();
 		newOrg.calcFitnessFunction();
 		return newOrg;
 	}
 	
 	public Organism parent(Organism parent){ // create new organism based on this and one other
-		return new Organism(0,0,null, math);
+		ArrayList<Integer> tempOps1 = (ArrayList<Integer>) operations.clone(); // Get operations list from both parents
+		ArrayList<Integer> tempOps2 = (ArrayList<Integer>) parent.getOperations().clone();
+		ArrayList<Integer> newOps = new ArrayList<Integer>();
+		for(int i = 0; i < tempOps1.size()/2; i++){
+			newOps.add(tempOps1.get(i));
+		}
+		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){
+			newOps.add(tempOps1.get(i+tempOps2.size()/2));
+		}
+		Organism newOrg = new Organism(start, goal, newOps, math);
+		newOrg.calcError();
+		newOrg.calcFitnessFunction();
+		return newOrg;
 	}
 	
 	
