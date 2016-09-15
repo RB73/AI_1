@@ -1,14 +1,16 @@
+package AIPack1;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import AIPack1.*;
 
 public class IterativeDeepening {
 
 
     private AIMath math;
-    private int start;
-    private int goal;
-    private int best;
+    private float start;
+    private float goal;
+    private float best;
     private int branchingFactor;
     private int nodesExpanded;
     private long timeLimit;
@@ -20,15 +22,19 @@ public class IterativeDeepening {
 
 
     private ArrayList<Integer> goalOperations;
-
+    private ArrayList<Integer> currentOperations;
+    private ArrayList<Integer> bestOperations;
+    
     /**
      * Constructor
      */
-    public IterativeDeepening(AIMath math, int start, int goal, long timeLimit, long startTime){
+    public IterativeDeepening(AIMath math, float start, float goal, long timeLimit, long startTime){
         this.math = math;
         this.start = start;
         this.goal = goal;
         goalOperations = new ArrayList<Integer>();
+        currentOperations = new ArrayList<Integer>();
+
         branchingFactor = math.Size();
         this.timeLimit = timeLimit;
         this.startTime = startTime;
@@ -42,21 +48,19 @@ public class IterativeDeepening {
         boolean done = false;
         int depth = 0;
         nodesExpanded = 0;
-
         while(!done){	// runs the search infinitely, with increasing depth
-            int result = searchBranch(depth, start);
-            if(result == goal){
+            float result = searchBranch(depth, start);
+            if(result == goal){     // found solution, end loop
                 Collections.reverse(goalOperations);
             	return new Result(goal, nodesExpanded, depth, goalOperations, System.currentTimeMillis() - startTime);
             }
-            if(result == TIMEOUT){
+            if(result == TIMEOUT)  // couldn't find solution in time
                 done = true;
-            }
-
             else depth ++;
         }
         
-        return new Result(best, nodesExpanded, depth, goalOperations, timeLimit); // timeout
+        Collections.reverse(bestOperations);
+        return new Result(best, nodesExpanded, depth, bestOperations, timeLimit); // timeout
     }
 
     //referenced pseudo code on wikipedia https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
@@ -66,11 +70,12 @@ public class IterativeDeepening {
      * @param node	current node
      * @return		value of goal if goal is reached; -1 otherwise; -2 if time limit
      */
-    public int searchBranch(int depth, int node){
+    public float searchBranch(int depth, float node){
     	nodesExpanded++;
-        int result;
+        float result;
 
         long currentTime = System.currentTimeMillis();
+
         if(currentTime - startTime > timeLimit)         // timeout case
         	return TIMEOUT;
         if(depth == 0 && node == goal)	                // success case
@@ -79,23 +84,35 @@ public class IterativeDeepening {
         // recursive loop until leaf end or solution is found
         if(depth > 0)
             for(int i = 0; i < branchingFactor; i++){
+            	
+            	if(currentOperations.size() - (depth) >=0){ // update array with current operations for each path
+            		currentOperations.remove(depth-1);
+            	}
+                currentOperations.add(depth - 1, i);
+            	
                 result = searchBranch(depth - 1, math.Op(i, node));	// recursion here
-
+               
                 if(result == goal){
+                	if(goalOperations.size() - (depth) >=0){
+                		goalOperations.remove(depth-1);
+                	}
                     goalOperations.add(depth - 1, i);
                     return result;
                 }
+
                 if(result == TIMEOUT)
                     return TIMEOUT;
-
-                if(result == BEST_FOUND){
-                    goalOperations.add(depth - 1, i);
-                    return BEST_FOUND;
-                }
-
             }
-        if(Math.abs(best - goal) < Math.abs(node - goal)){
+
+        // check if current leaf is the current best solution
+        double bestError = Math.abs(best - goal);
+        double currentError = Math.abs(node - goal);
+        if(bestError > currentError && currentError > Integer.MIN_VALUE){
             best = node;
+            bestOperations = new ArrayList<Integer>();
+            for(int i = 0; i < currentOperations.size(); i++){
+            	bestOperations.add(currentOperations.get(i));
+            }
             return BEST_FOUND;
         }
 

@@ -1,14 +1,15 @@
+package AIPack1;
 import java.util.ArrayList;
-
+import AIPack1.*;
 public class Result {
 
-    private int best;
+    private float best;
     private int nodesExpanded;
     private int depth;
     private ArrayList<Integer> operations;	// sequence of indexes for operations leading to the goal value
     private long searchTime;
 
-    public Result(int best, int nodesExpanded, int depth, ArrayList<Integer> operations, long searchTime){
+    public Result(float best, int nodesExpanded, int depth, ArrayList<Integer> operations, long searchTime){
         this.best = best;
         this.nodesExpanded = nodesExpanded;
         this.depth = depth;
@@ -51,7 +52,7 @@ public class Result {
         this.searchTime = searchTime;
     }
 
-    public int getBest() {
+    public float getBest() {
         return best;
     }
 
