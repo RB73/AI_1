@@ -23,17 +23,17 @@ public class Generation {
 			for(int k=0; k <length; k++){
 				operations.add((int)(Math.random()*math.Size())); // generate L random operations
 			}
-			gen.add(new Organism((float)start, (float)goal, operations)); // add the randomly generated organism to population
+			gen.add(new Organism((float)start, (float)goal, operations), math); // add the randomly generated organism to population
 		}
 	}
 	
 	// for TESTING PURPOSES
-	public String printPopulation(){
+	public String printPopulation(int size){
 		ArrayList<Integer> operations;
-		int OP;
+//		int OP;
 		String population = new String();
 		population+="**** POPULATION OF " + genSize + " NODES ****\n";
-		for(int i=0; i<100; i++){
+		for(int i=0; i<size; i++){
 			operations = gen.get(i).getOperations();
 			population+="Org#" + i + " : ";
 			for(int k=0; k< operations.size(); k++){
@@ -70,7 +70,12 @@ public class Generation {
 		}
 		
 		
+		public ArrayList<Organism> getPopulation(){
+			return this.gen;
+		}
 		
-		
+		public void setPopulation(ArrayList<Organism> gen){
+			this.gen = gen;
+		}
 	}
 	

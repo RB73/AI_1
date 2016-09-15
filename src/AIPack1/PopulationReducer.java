@@ -1,6 +1,5 @@
 package AIPack1;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class PopulationReducer {
 
 
     // linear probability function (if there's 100 organisms, 100% for best surviving, 99% for second best, etc..)
-    private ArrayList<Organism> reduce(){
+    public ArrayList<Organism> reduce(){
         int probability;    // percentage talked about ^
         int keepLength = 0; // count for length of how many organisms survive
 
@@ -48,7 +47,7 @@ public class PopulationReducer {
 
 
     // split organisms into 2 sections, give probability% chance of survival for lower half, probability% death for upper half
-    private ArrayList<Organism> reduce2(){
+    public ArrayList<Organism> reduce2(){
         int keepProbability = (int)(100 * PERCENT_FLIPPED);
         int keepLength = 0;
 

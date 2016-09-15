@@ -77,7 +77,10 @@ public class Main {
 	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
 	    	long f = System.currentTimeMillis(); // to test
 	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
-	    	System.out.println(gen.printPopulation()); // test
+	    	System.out.println(gen.printPopulation(100)); // test
+	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
+	    	gen.setPopulation(red.reduce());
+	    	System.out.println(gen.printPopulation(50));
 	    }
 	    
 	    System.out.println("DONE");
