@@ -77,13 +77,13 @@ public class Organism {
 		ArrayList<Integer> tempOps1 = (ArrayList<Integer>) operations.clone(); // Get operations list from both parents
 		ArrayList<Integer> tempOps2 = (ArrayList<Integer>) parent.getOperations().clone();
 		ArrayList<Integer> newOps = new ArrayList<Integer>();
-		for(int i = 0; i < tempOps1.size()/2; i++){
+		for(int i = 0; i < tempOps1.size()/2; i++){ // Add first half of first parent to offspring
 			newOps.add(tempOps1.get(i));
 		}
-		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){
+		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){ // Add second half of second parent to offspring
 			newOps.add(tempOps1.get(i));
 		}
-		Organism newOrg = new Organism(start, goal, newOps, math);
+		Organism newOrg = new Organism(start, goal, newOps, math); // Make and return new organism
 		newOrg.calcError();
 		newOrg.calcFitnessFunction();
 		return newOrg;
