@@ -21,8 +21,8 @@ public class Generation {
 		for(int i = 0; i < length/2; i++){ // add offspring to new gen
 			newGenList.add(gen.get(i).parent(gen.get(length-i)));
 		}
-		for(int i = 0; i < length/2; i++){ // add mutated offspring to new gen
-			newGenList.add(newGenList.get(i+length+length/2).mutate());
+		for(int i = 0; i < length; i = i + 2){ // add mutated offspring to new gen
+			newGenList.add(gen.get(i).parent(gen.get(i+1)));
 		}
 		Generation newGen = new Generation(newGenList); // creatre new generation
 		return newGen;
