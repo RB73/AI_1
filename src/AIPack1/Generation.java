@@ -12,7 +12,21 @@ public class Generation {
 		this.gen = gen;
 	}
 	
-	
+	public Generation newGen(){ // return a new generation
+		ArrayList<Organism> newGenList = new ArrayList<Organism>();
+		int length = gen.size();
+		for(int i = 0; i < length; i++){ // add mutations to new gen
+			newGenList.add(gen.get(i).mutate());
+		}
+		for(int i = 0; i < length/2; i++){ // add offspring to new gen
+			newGenList.add(gen.get(i).parent(gen.get(length-i)));
+		}
+		for(int i = 0; i < length/2; i++){ // add mutated offspring to new gen
+			newGenList.add(newGenList.get(i+length+length/2).mutate());
+		}
+		Generation newGen = new Generation(newGenList); // creatre new generation
+		return newGen;
+	}
 	
 
 }

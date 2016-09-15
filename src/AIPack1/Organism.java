@@ -48,8 +48,13 @@ public class Organism {
 		return size;
 	}
 
+	public Organism mutate(){ // mutate this organism
+		return new Organism(0,0,null);
+	}
 	
-	
+	public Organism parent(Organism parent){ // create new organism based on this and one other
+		return new Organism(0,0,null);
+	}
 	
 	
 	
