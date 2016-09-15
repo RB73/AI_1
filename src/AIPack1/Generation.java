@@ -18,25 +18,49 @@ public class Generation {
 		int length = 0;
 		
 		for(int i=0; i<genSize; i++){	// generate genSize(100) organisms for initial population
-			ArrayList<Integer> operations = new ArrayList<Integer>();
-			length = (int)(Math.random()*limit); // generate random length L of the organism
+			ArrayList<Function> operations = new ArrayList<Function>();
+			length = (int)(Math.random()*limit+1); // generate random length L of the organism
 			for(int k=0; k <length; k++){
-				operations.add((int)(Math.random()*math.Size())); // generate L random operations
+				operations.add(math.returnOp((int)(Math.random()*math.Size()))); // generate L random operations
 			}
-			gen.add(new Organism(start, goal, operations)); // add the randomly generated organism to population
+			gen.add(new Organism((float)start, (float)goal, operations)); // add the randomly generated organism to population
 		}
 	}
 	
 	// for TESTING PURPOSES
 	public String printPopulation(){
-		ArrayList<Integer> operations;
+		ArrayList<Function> operations;
+		int OP;
 		String population = new String();
-		population+="**** POPULATION OF " + genSize + " NODES ****";
+		population+="**** POPULATION OF " + genSize + " NODES ****\n";
 		for(int i=0; i<100; i++){
 			operations = gen.get(i).getOperations();
-			population+="Org#" + i + " : |";
+			population+="Org#" + i + " : ";
 			for(int k=0; k< operations.size(); k++){
-				population+="|" + operations.get(k);
+				OP = operations.get(k).getFunc();
+				switch(OP){
+				case 0:
+					population+="+";
+					break;
+				case 1:
+					population+="-";
+					break;
+				case 2:
+					population+="*";
+					break;
+				case 3: 
+					population+="/";
+					break;
+				case 4:
+					population+="^";
+					break;
+				default:
+					population+="error";
+					break;
+					
+				}
+				population+=operations.get(k).getNum();
+				population+="|";
 			}
 			population+="\n";
 		}

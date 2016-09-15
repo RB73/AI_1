@@ -52,7 +52,7 @@ public class Main {
 	    funs = operationsToFunctions(inputOperations);
 	    
 	    
-		System.out.println("STARING");
+		System.out.println("STARTING");
 		startTime = System.currentTimeMillis();//initialize the timer when the program starts
 		
 	    // Create AIMath object, add operations list to it
@@ -72,10 +72,12 @@ public class Main {
 		    printOutput(result, Math, targetNum);
 	    }
 	    else if(searchType.equals("genetic")){
-	    	Generation gen = new Generation(null);
-	    	System.out.print("Generating Initial Population");
+	    	Generation gen = new Generation(new ArrayList<Organism>());
+	    	long s =  System.currentTimeMillis(); // to test
 	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
-	    	System.out.println(gen.printPopulation());
+	    	long f = System.currentTimeMillis(); // to test
+	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
+	    	System.out.println(gen.printPopulation()); // test
 	    }
 	    
 	    System.out.println("DONE");
