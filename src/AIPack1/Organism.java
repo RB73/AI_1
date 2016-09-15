@@ -81,7 +81,7 @@ public class Organism {
 			newOps.add(tempOps1.get(i));
 		}
 		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){
-			newOps.add(tempOps1.get(i+tempOps2.size()/2));
+			newOps.add(tempOps1.get(i));
 		}
 		Organism newOrg = new Organism(start, goal, newOps, math);
 		newOrg.calcError();
