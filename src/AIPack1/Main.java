@@ -22,29 +22,28 @@ public class Main {
 	
 	static ArrayList<String> inputList = new ArrayList<String>();
     public static String searchType;
-    public static int startNum;
-    public static int targetNum;
+    public static float startNum;
+    public static float targetNum;
     public static long timeLimit;
     public static ArrayList<String> inputOperations = new ArrayList<String>();
     public static ArrayList<Function> funs = new ArrayList<Function>();
     public static long startTime; //in milliseconds
-  
+    private static int NODE_LIMIT = 30;
 
     
 	public static void main(String[] args) throws FileNotFoundException {
-
+		
 		//read in the input from a text file given through command line, and add the inputs to an array list
 	    Scanner scn = new Scanner(System.in);
 	    while (scn.hasNext()){
 	        inputList.add(scn.next());
 	    }
 	    scn.close();
-
 	    
 	    //set the globals with the values from the arguments given in the input list
 	    searchType = inputList.get(0);
-	    startNum = Integer.parseInt(inputList.get(1));
-	    targetNum = Integer.parseInt(inputList.get(2));
+	    startNum =	Float.parseFloat(inputList.get(1));
+	    targetNum = Float.parseFloat(inputList.get(2));
 	    timeLimit = (long)(Double.parseDouble(inputList.get(3))*1000); //in milliseconds
 	    for(int i = 4; i < inputList.size(); i++){
 	    	inputOperations.add(inputList.get(i));
@@ -60,7 +59,7 @@ public class Main {
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
 	    Result result;
-	    
+	    /*
 	    if(searchType.equals("iterative")){ 	
 	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = itr.runSearch();
@@ -71,6 +70,19 @@ public class Main {
 	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = grd.runSearch();
 		    printOutput(result, Math, targetNum);
+	    }*/
+	    if(searchType.equals("genetic")){
+	    	Generation gen = new Generation(new ArrayList<Organism>());
+	    	long s =  System.currentTimeMillis(); // to test
+	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
+	    	long f = System.currentTimeMillis(); // to test
+	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
+	    	System.out.println(gen.printPopulation(100)); // test
+	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
+	    	gen.setPopulation(red.reduce());
+	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
+	    	
+	    	
 	    }
 	    
 	    System.out.println("DONE");
@@ -89,11 +101,11 @@ public class Main {
 		ArrayList<Function> funcs = new ArrayList<Function>();
 		char funcChar;
 		int funcNum = 0;
-		int inputNum = 0; 
+		float inputNum = 0; 
 		//loops through the list of operations
 		for(int i = 0; i<ops.size(); i++){
 			funcChar = ops.get(i).charAt(0);//gets the first character of the operation which is the operator character, i.e (+,-,*...)
-			inputNum = Integer.parseInt(ops.get(i).substring(1)); //gets the number that follows the operator and stores it into an integer
+			inputNum = Float.parseFloat(ops.get(i).substring(1)); //gets the number that follows the operator and stores it into an integer
 			
 			//find the Function number corresponding to each operator
 			// 0 = add, 1 = sub, 2 = mul, 3 = div, 4 = exp

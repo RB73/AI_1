@@ -32,7 +32,7 @@ public class Organism {
 	
 	//TODO write up the calculation for this function using the error and size 
 	public void calcFitnessFunction() {
-		this.fitnessFunction = this.error + this.size;
+		this.fitnessFunction =  this.size;
 	}
 	
 	
