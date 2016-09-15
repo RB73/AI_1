@@ -28,18 +28,17 @@ public class Main {
     public static ArrayList<String> inputOperations = new ArrayList<String>();
     public static ArrayList<Function> funs = new ArrayList<Function>();
     public static long startTime; //in milliseconds
-  
+    private static int NODE_LIMIT = 30;
 
     
 	public static void main(String[] args) throws FileNotFoundException {
-
+		
 		//read in the input from a text file given through command line, and add the inputs to an array list
 	    Scanner scn = new Scanner(System.in);
 	    while (scn.hasNext()){
 	        inputList.add(scn.next());
 	    }
 	    scn.close();
-
 	    
 	    //set the globals with the values from the arguments given in the input list
 	    searchType = inputList.get(0);
@@ -53,7 +52,7 @@ public class Main {
 	    funs = operationsToFunctions(inputOperations);
 	    
 	    
-		System.out.println("STARTING");
+		System.out.println("STARING");
 		startTime = System.currentTimeMillis();//initialize the timer when the program starts
 		
 	    // Create AIMath object, add operations list to it
@@ -71,6 +70,12 @@ public class Main {
 	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
 	    	result = grd.runSearch();
 		    printOutput(result, Math, targetNum);
+	    }
+	    else if(searchType.equals("genetic")){
+	    	Generation gen = new Generation(null);
+	    	System.out.print("Generating Initial Population");
+	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
+	    	System.out.println(gen.printPopulation());
 	    }
 	    
 	    System.out.println("DONE");

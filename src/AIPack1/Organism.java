@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Organism {
 	private float start;
 	private float goal;
-	private ArrayList<Function> operations;
+	private ArrayList<Integer> operations;
 	private float fitnessFunction;
 	private float error;
 	private int size; //number of operations the organism has
 
-	public Organism (float start, float goal, ArrayList<Function> operations){
+	public Organism (float start, float goal, ArrayList<Integer> operations){
 		this.start = start;
 		this.goal = goal;
 		this.operations = operations;
@@ -32,7 +32,7 @@ public class Organism {
 	
 	// getters
 	
-	public ArrayList<Function> getOperations() {
+	public ArrayList<Integer> getOperations() {
 		return operations;
 	}
 
