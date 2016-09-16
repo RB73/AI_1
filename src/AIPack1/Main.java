@@ -173,7 +173,7 @@ public static void printOrg(Organism org, AIMath math,float start, float target,
 		System.out.println("Size of organism: "+ org.getSize());
 		
 		//search required (time in seconds)
-		System.out.println("Search Required: " + time);
+		System.out.println("Search Required: " + time/1000 +" seconds");
 		
 		//Population size of gen 
 		System.out.println("Population size: " + popSize);
