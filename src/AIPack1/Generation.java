@@ -22,8 +22,8 @@ public class Generation {
 			newGenList.add(gen.get(i).mutate());
 		}
 		for(int i = 0; i < length/2; i++){ // add offspring to new gen
-			newGenList.add(gen.get(i).parent(gen.get(length-i)));
-			newGenList.add(gen.get(length-i).parent(gen.get(i)));
+			newGenList.add(gen.get(i).parent(gen.get(length-i-1)));
+			newGenList.add(gen.get(length-i-1).parent(gen.get(i)));
 		}
 		while(newGenList.size() > genSize){ // Reduce population to size
 			newGenList.remove(newGenList.size()-1);

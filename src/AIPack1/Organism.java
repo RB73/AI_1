@@ -65,6 +65,9 @@ public class Organism {
 		for(int i = 0; i < size; i++){
 			newOps.add(operations.get(i));
 		}
+		if(newOps.size() == 1 && change == 2){
+			change = 0;
+		}
 		switch(change){
 			case 0: // Nothing changes
 				break;

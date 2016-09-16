@@ -86,7 +86,9 @@ public class Main {
 	    	gen.setPopulation(gen.mutatePopulation());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	System.out.println("GEN - 3");
-	    	
+	    	gen = gen.newGen();
+	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
+	    	System.out.println("GEN - 4");
 	    }
 	    
 	    System.out.println("DONE");
