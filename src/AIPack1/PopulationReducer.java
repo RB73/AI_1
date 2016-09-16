@@ -60,17 +60,20 @@ public class PopulationReducer {
         int keepProbability = (int)(100 * PERCENT_FLIPPED);
         ArrayList<Organism> finalList = new ArrayList<Organism>();
 
-        for(int i = 0; i < length / 2; i++){        // to keep (from worse half)
-            if(100 * Math.random() < keepProbability)
-                finalList.add(organisms.get(i));
-        }
-        for(int i = length / 2; i < length - 5; i++){   // to keep (from better half)
+        for(int i = 5; i < length / 2; i++){        // to keep (from better half)
             if(100 * Math.random() < 100 - keepProbability)
                 finalList.add(organisms.get(i));
         }
+<<<<<<< HEAD
 
+=======
+        for(int i = length / 2; i < length - 5; i++){   // to keep (from worse half)
+            if(100 * Math.random() < keepProbability)
+                finalList.add(organisms.get(i));
+        }
+>>>>>>> refs/remotes/origin/Larisa2
         for(int i = 0; i < 5; i++)          // make sure the best 5 are kept
-            finalList.add(organisms.get(length - 1 - i));
+            finalList.add(organisms.get(i));
 
         return finalList;
     }
