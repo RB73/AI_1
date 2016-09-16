@@ -107,9 +107,11 @@ public class Generation {
 			this.gen = gen;
 		}
 		
-		public void mutatePopulation(){
+		public ArrayList<Organism> mutatePopulation(){
+			ArrayList<Organism> newGen = new ArrayList<Organism>();
 			for(int k=0; k< this.gen.size(); k++){
-				gen.get(k).mutate();
+				newGen.add(gen.get(k).mutate());
 			}
+			return newGen;
 		}
 }	

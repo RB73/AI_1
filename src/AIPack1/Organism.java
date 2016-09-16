@@ -69,13 +69,13 @@ public class Organism {
 			case 0: // Nothing changes
 				break;
 			case 1: // Add operator
-				newOps.add(what2Change,((int)Math.random())^math.Size());
+				newOps.add(what2Change,((int)(Math.random()*math.Size())));
 				break;
 			case 2: // Remove operator
 				newOps.remove(what2Change);
 				break;
 			case 3: // Change operator
-				newOps.set(what2Change, ((int)Math.random())^math.Size());
+				newOps.set(what2Change, ((int)(Math.random()*math.Size())));
 				break;
 		}
 		Organism newOrg = new Organism(start, goal, newOps, math); // Make and return new organism

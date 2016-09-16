@@ -83,7 +83,7 @@ public class Main {
 	    	gen.setPopulation(red.reduce());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	System.out.println("GEN - 2");
-	    	gen.mutatePopulation();
+	    	gen.setPopulation(gen.mutatePopulation());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	System.out.println("GEN - 3");
 	    	
