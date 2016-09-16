@@ -17,6 +17,7 @@ public class Generation {
 	public Generation newGen(){ // return a new generation
 		ArrayList<Organism> newGenList = new ArrayList<Organism>();
 		int length = gen.size();
+		newGenList.add(gen.get(length-1));
 		for(int i = 0; i < length; i++){ // add mutations to new gen
 			newGenList.add(gen.get(i).mutate());
 		}

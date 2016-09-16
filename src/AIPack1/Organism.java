@@ -98,7 +98,7 @@ public class Organism {
 			newOps.add(tempOps1.get(i));
 		}
 		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){ // Add second half of second parent to offspring
-			newOps.add(tempOps1.get(i));
+			newOps.add(tempOps2.get(i));
 		}
 		Organism newOrg = new Organism(start, goal, newOps, math); // Make and return new organism
 		newOrg.calcError();
