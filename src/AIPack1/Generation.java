@@ -7,7 +7,7 @@ public class Generation {
 	
 	
 	private ArrayList<Organism> gen;
-	private int genSize = 100;
+	public int genSize = 100;
 	
 	public Generation(ArrayList<Organism> gen){
 		this.gen = gen;
@@ -45,6 +45,7 @@ public class Generation {
 			Organism org = new Organism(start, goal, operations, math);
 			org.calcError();
 			org.calcFitnessFunction();
+			System.out.println(org.getFitnessFunction());
 			gen.add(org); // add the randomly generated organism to population
 		}
 	}

@@ -71,27 +71,101 @@ public class Main {
 	    	result = grd.runSearch();
 		    printOutput(result, Math, targetNum);
 	    }*/
+	  	Generation gen = new Generation(new ArrayList<Organism>());
+	    long timePassed;
 	    if(searchType.equals("genetic")){
-	    	Generation gen = new Generation(new ArrayList<Organism>());
+	    	int genNum = 1;
+	    	//initial generation
+	  
 	    	long s =  System.currentTimeMillis(); // to test
 	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
 	    	long f = System.currentTimeMillis(); // to test
 	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
 	    	System.out.println(gen.printPopulation(100)); // test
+	    	
+	    	
+	    	//culling the first generation
 	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
 	    	gen.setPopulation(red.reduce());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	
 	    	
+	    	Organism bestOrganism = gen.getPopulation().get(0);
+	    	
+	    	timePassed = System.currentTimeMillis() - startTime;
+	    	
+	    	while(timePassed < timeLimit){
+	    		genNum++; //next generation
+	    		//TODO: create new gen
+		    	
+	
+	    		
+	    		//culling 
+	    		red = new PopulationReducer(gen.getPopulation());
+	    		gen.setPopulation(red.reduce());
+	    		
+	    		//set the best organism
+		    	bestOrganism = gen.getPopulation().get(0);
+		    	
+		    	//calculate time passed
+		    	timePassed = System.currentTimeMillis() - startTime;
+	    	}
+	    	if(timePassed >= timeLimit){
+	    		timePassed = timeLimit;
+	    	}
+	    	
+		    System.out.println("Printing Organism Result");
+		    printOrg(bestOrganism, Math, startNum, targetNum, gen.genSize, genNum, timePassed);
+	    	
 	    }
+	    else{
+	    	System.out.println("Input file has an Error");
+	    }
+	    
+
+	    
 	    
 	    System.out.println("DONE");
 	   
 
+	//end of static void main	
+	}
+	
+public static void printOrg(Organism org, AIMath math,float start, float target, int popSize, int genNum, long time){
 		
+		//operations
+		//TODO : similar to what is done with result
+	
+	float current = start;
+	float next; 
+	String currentStr;
+	String toPrint;
+	//Print the operations
+	for(int i = 0; i < org.getOperations().size(); i++){
+		currentStr = Float.toString(current) + getOpFromIndex(org.getOperations().get(i));
+		next = math.Op(org.getOperations().get(i),current);
+		toPrint = currentStr + "=" + Float.toString(next);
+		System.out.println(toPrint);
+		current = next;
 	}
 	
 	
+		//Error
+		System.out.println("Error: " + org.getError());
+		
+		//Size of organism
+		System.out.println("Size of organism: "+ org.getSize());
+		
+		//search required (time in seconds)
+		System.out.println("Search Required: " + time);
+		
+		//Population size of gen 
+		System.out.println("Population size: " + popSize);
+		
+		//number of generations
+		System.out.println("Number of generations: " + genNum);
+		
+	}
 
 	/*
 	 * A Function that takes a list of operations as strings and translates them to list of Functions
