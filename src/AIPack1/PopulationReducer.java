@@ -13,14 +13,14 @@ public class PopulationReducer {
 
 
 //    private float median;        // this is the middle of the fitness function result // not used whoops
-    private ArrayList<Organism> organisms;
+    public ArrayList<Organism> organisms;
     private int length;
 
 
 
     PopulationReducer(ArrayList<Organism> organisms){
+        length = organisms.size();
         this.organisms = organisms;
-        length = this.organisms.size();
         quickSort(this.organisms, 0, length - 1);
 //        median = this.organisms[length / 2 - 1].getFitnessFunction();
     }
@@ -63,7 +63,7 @@ public class PopulationReducer {
 
 
     // https://en.wikipedia.org/wiki/Quicksort
-    private void quickSort(ArrayList<Organism> toSort, int high, int low){
+    public void quickSort(ArrayList<Organism> toSort, int high, int low){
         if(low < high){
             int pivot = partition(toSort, low, high);
             quickSort(toSort, low, pivot - 1);

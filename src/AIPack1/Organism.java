@@ -53,23 +53,31 @@ public class Organism {
 	public int getSize() {
 		return size;
 	}
-
+	
+	public void setSize(int size){
+		this.size = size;
+	}
+	
 	public Organism mutate(){ // mutate this organism
-		int change = ((int)Math.random())^4; // randomly choose what changed
-		int what2Change = ((int)Math.random())^size; // randomly choose which operation changes
-		ArrayList<Integer> newOps = (ArrayList<Integer>) operations.clone();
+		int change = (int)(Math.random()*4); // randomly choose what changed
+		int what2Change = (int)(Math.random()*size); // randomly choose which operation changes
+		ArrayList<Integer> newOps = (ArrayList<Integer>) this.operations.clone();
 		switch(change){
 			case 0: // Nothing changes
+				break;
 			case 1: // Add operator
 				newOps.add(what2Change,((int)Math.random())^math.Size());
+				break;
 			case 2: // Remove operator
 				newOps.remove(what2Change);
+				break;
 			case 3: // Change operator
 				newOps.set(what2Change, ((int)Math.random())^math.Size());
+				break;
 		}
 		Organism newOrg = new Organism(start, goal, newOps, math);
-		newOrg.calcError();
-		newOrg.calcFitnessFunction();
+//		newOrg.calcError();
+//		newOrg.calcFitnessFunction();
 		return newOrg;
 	}
 	

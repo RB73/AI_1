@@ -85,6 +85,7 @@ public class Generation {
 //				population+=operations.get(k).getNum();
 //				population+="|";
 			}
+			population+=" With fit " + gen.get(i).getFitnessFunction();
 			population+="\n";
 		}
 			
@@ -98,5 +99,11 @@ public class Generation {
 		
 		public void setPopulation(ArrayList<Organism> gen){
 			this.gen = gen;
+		}
+		
+		public void mutatePopulation(){
+			for(int k=0; k< this.gen.size(); k++){
+				gen.get(k).mutate();
+			}
 		}
 }	

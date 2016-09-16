@@ -78,10 +78,14 @@ public class Main {
 	    	long f = System.currentTimeMillis(); // to test
 	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
 	    	System.out.println(gen.printPopulation(100)); // test
+	    	System.out.println("GEN - 1");
 	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
 	    	gen.setPopulation(red.reduce());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
-	    	
+	    	System.out.println("GEN - 2");
+	    	gen.mutatePopulation();
+	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
+	    	System.out.println("GEN - 3");
 	    	
 	    }
 	    
