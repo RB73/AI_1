@@ -1,6 +1,5 @@
 package AIPack1;
 
-
 import java.util.ArrayList;
 
 /**
@@ -13,14 +12,26 @@ public class PopulationReducer {
 
 
 //    private float median;        // this is the middle of the fitness function result // not used whoops
-    private ArrayList<Organism> organisms;
+    public ArrayList<Organism> organisms;
     private int length;
 
 
 
     PopulationReducer(ArrayList<Organism> organisms){
-        this.organisms = organisms;
-        length = this.organisms.size();
+        length = organisms.size();
+        this.organisms = new ArrayList<Organism>();
+        for(Organism o : organisms)
+            (this.organisms).add(o);
+//
+//        System.out.println("These are the generations before sorting");
+//        for(int i = 0; i < length; i++){
+//            System.out.print(i + ": " );
+//            for(int j = 0; j < organisms.get(i).getSize(); j++){
+//                System.out.print("| " + organisms.get(i).getOperations().get(j));
+//            }
+//            System.out.println("");
+//        }
+//
         quickSort(this.organisms, 0, length - 1);
 //        median = this.organisms[length / 2 - 1].getFitnessFunction();
     }
@@ -57,37 +68,38 @@ public class PopulationReducer {
             if(100 * Math.random() < 100 - keepProbability)
                 finalList.add(organisms.get(i));
         }
-
         return finalList;
     }
 
-
-    // https://en.wikipedia.org/wiki/Quicksort
-    private void quickSort(ArrayList<Organism> toSort, int high, int low){
+    // heavily referenced http://www.algolist.net/Algorithms/Sorting/Quicksort
+    private void quickSort(ArrayList<Organism> toSort, int low, int high){
         if(low < high){
             int pivot = partition(toSort, low, high);
-            quickSort(toSort, low, pivot - 1);
-            quickSort(toSort, pivot + 1, high);
+            if(low < pivot - 1)
+                quickSort(toSort, low, pivot - 1);
+            if(high > pivot)
+                quickSort(toSort, pivot, high);
         }
     }
-    private int partition(ArrayList<Organism> toSort, int high, int low){
-        float pivot = toSort.get(high).getFitnessFunction();
-        int i = low;
-        for(int j = low; j < high - 1; j++){
-            if(toSort.get(j).getFitnessFunction() <= pivot){
-                swap(toSort, i, j);
+    private int partition(ArrayList<Organism> toSort, int low, int high){
+        int i = low, j = high;
+        Organism temp;
+        float pivot = toSort.get((low + high) / 2).getFitnessFunction();
+        while(i <= j){
+            while(toSort.get(i).getFitnessFunction() < pivot)
                 i++;
+            while(toSort.get(j).getFitnessFunction() > pivot)
+                j--;
+            if(i <= j){
+                temp = toSort.get(i);
+                toSort.set(i, toSort.get(j));
+                toSort.set(j, temp);
+                i++;
+                j--;
             }
         }
-        swap(toSort, i, high);
         return i;
     }
-    private void swap(ArrayList<Organism> toSort, int first, int second){
-        Organism temp = toSort.get(first);
-        toSort.set(first, toSort.get(second));  // does this work or is it just pointers
-        toSort.set(second, temp);
-    }
-
 
 
 }
