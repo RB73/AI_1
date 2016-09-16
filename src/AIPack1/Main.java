@@ -80,14 +80,14 @@ public class Main {
 	    	long s =  System.currentTimeMillis(); // to test
 	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
 	    	long f = System.currentTimeMillis(); // to test
-	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
-	    	System.out.println(gen.printPopulation(100)); // test
+//	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
+//	    	System.out.println(gen.printPopulation(100)); // test
 
 
 	    	//culling the first generation
 	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
 	    	gen.setPopulation(red.reduce());
-	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
+//	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	
 /*
 	    	System.out.println("GEN - 1");
@@ -99,6 +99,7 @@ public class Main {
 	    	gen.setPopulation(gen.mutatePopulation());
 	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
 	    	System.out.println("GEN - 3");
+<<<<<<< HEAD
 	    	*/
 	    	
 	    	
@@ -129,7 +130,6 @@ public class Main {
 	    	
 		    System.out.println("Printing Organism Result");
 		    printOrg(bestOrganism, Math, startNum, targetNum, gen.genSize, genNum, timePassed);
-	    	
 	    }
 	    else{
 	    	System.out.println("Input file has an Error");

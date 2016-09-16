@@ -32,7 +32,7 @@ public class Organism {
 	
 	//TODO write up the calculation for this function using the error and size 
 	public void calcFitnessFunction() {
-		this.fitnessFunction =  this.size;
+		this.fitnessFunction =  this.error*-1;
 	}
 	
 	
@@ -64,6 +64,9 @@ public class Organism {
 		ArrayList<Integer> newOps = new ArrayList<Integer>();
 		for(int i = 0; i < size; i++){
 			newOps.add(operations.get(i));
+		}
+		if(newOps.size() == 1 && change == 2){
+			change = 0;
 		}
 		switch(change){
 			case 0: // Nothing changes
@@ -98,7 +101,7 @@ public class Organism {
 			newOps.add(tempOps1.get(i));
 		}
 		for(int i = tempOps2.size()/2; i < tempOps2.size(); i++){ // Add second half of second parent to offspring
-			newOps.add(tempOps1.get(i));
+			newOps.add(tempOps2.get(i));
 		}
 		Organism newOrg = new Organism(start, goal, newOps, math); // Make and return new organism
 		newOrg.calcError();
