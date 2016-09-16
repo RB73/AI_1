@@ -57,7 +57,10 @@ public class Organism {
 	public Organism mutate(){ // mutate this organism
 		int change = ((int)Math.random())^4; // randomly choose what changed
 		int what2Change = ((int)Math.random())^size; // randomly choose which operation changes
-		ArrayList<Integer> newOps = (ArrayList<Integer>) operations.clone();
+		ArrayList<Integer> newOps = new ArrayList<Integer>();
+		for(int i = 0; i < size; i++){
+			newOps.add(operations.get(i));
+		}
 		switch(change){
 			case 0: // Nothing changes
 			case 1: // Add operator
@@ -74,8 +77,14 @@ public class Organism {
 	}
 	
 	public Organism parent(Organism parent){ // create new organism based on this and one other
-		ArrayList<Integer> tempOps1 = (ArrayList<Integer>) operations.clone(); // Get operations list from both parents
-		ArrayList<Integer> tempOps2 = (ArrayList<Integer>) parent.getOperations().clone();
+		ArrayList<Integer> tempOps1 = new ArrayList<Integer>();
+		for(int i = 0; i < size; i++){
+			tempOps1.add(operations.get(i));
+		}
+		ArrayList<Integer> tempOps2 = new ArrayList<Integer>();
+		for(int i = 0; i < parent.getSize(); i++){
+			tempOps2.add(parent.getOperations().get(i));
+		}
 		ArrayList<Integer> newOps = new ArrayList<Integer>();
 		for(int i = 0; i < tempOps1.size()/2; i++){ // Add first half of first parent to offspring
 			newOps.add(tempOps1.get(i));
