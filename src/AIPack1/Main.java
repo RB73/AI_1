@@ -107,7 +107,7 @@ public class Main {
 	    	
 	    	timePassed = System.currentTimeMillis() - startTime;
 	    	
-	    	while(timePassed < timeLimit){
+	    	while(timePassed < timeLimit && bestOrganism.getError() != 0){
 	    		System.out.println("Into the loop");
 	    		genNum++; //next generation
 	    		//TODO: create new gen
@@ -123,7 +123,10 @@ public class Main {
 		    	
 		    	//calculate time passed
 		    	timePassed = System.currentTimeMillis() - startTime;
-	    	}
+		    	
+		    	
+	    	}//end of while
+	    	
 	    	if(timePassed >= timeLimit){
 	    		timePassed = timeLimit;
 	    	}

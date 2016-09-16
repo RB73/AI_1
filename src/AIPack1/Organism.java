@@ -24,8 +24,12 @@ public class Organism {
 	//TODO write the calculations of the error from the the operations and start
 	public void calcError(){
 		float result = this.start;
+		
 		for (int i = 0; i < this.size; i++){
 			result = this.math.Op(this.operations.get(i), result);
+		}
+		if(Float.isNaN(result) || Float.isInfinite(result)){
+			result = 999999;
 		}
 		this.error = Math.abs(this.goal - result);
 	}
