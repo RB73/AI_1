@@ -64,14 +64,12 @@ public class PopulationReducer {
             if(100 * Math.random() < 100 - keepProbability)
                 finalList.add(organisms.get(i));
         }
-<<<<<<< HEAD
 
-=======
         for(int i = length / 2; i < length - 5; i++){   // to keep (from worse half)
             if(100 * Math.random() < keepProbability)
                 finalList.add(organisms.get(i));
         }
->>>>>>> refs/remotes/origin/Larisa2
+
         for(int i = 0; i < 5; i++)          // make sure the best 5 are kept
             finalList.add(organisms.get(i));
 
