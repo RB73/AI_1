@@ -22,11 +22,17 @@ public class Generation {
 		}
 		for(int i = 0; i < length/2; i++){ // add offspring to new gen
 			newGenList.add(gen.get(i).parent(gen.get(length-i)));
+			newGenList.add(gen.get(length-i).parent(gen.get(i)));
 		}
-		for(int i = 0; i < length; i = i + 2){ // add mutated offspring to new gen
-			newGenList.add(gen.get(i).parent(gen.get(i+1)));
+		while(newGenList.size() > genSize){ // Reduce population to size
+			newGenList.remove(newGenList.size()-1);
 		}
-		Generation newGen = new Generation(newGenList); // creatre new generation
+		int i = 0;
+		while(newGenList.size() < genSize){ // Increase population to size
+			newGenList.add(gen.get(i).parent(gen.get(i+1))); // Add offspring of different pairings
+			i = i + 2;
+		}
+		Generation newGen = new Generation(newGenList); // create new generation
 		return newGen;
 }
 
