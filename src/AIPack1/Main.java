@@ -11,7 +11,7 @@ import AIPack1.*;
  * go to the src directory
  * create a text file that have some input, say you called it input.txt
  * compile the program by writing the following in the command line:
- * 			javac -d . *.java
+ * 			javac -d . AIPack1*.java
  * then run the program by writing the following in the command line:
  * 			java AIPack1.Main < input.txt
  * open the output.txt file and it will contain the result of running the program
@@ -112,7 +112,7 @@ public class Main {
 	    		genNum++; //next generation
 	    		System.out.println("Generation: " + genNum);
 	    		//TODO: create new gen
-		    	gen = gen.newGen();
+		    	gen = gen.betterGen();
 	
 	    		
 	    		//culling 

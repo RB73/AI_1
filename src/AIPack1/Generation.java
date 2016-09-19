@@ -37,8 +37,42 @@ public class Generation {
 		Generation newGen = new Generation(newGenList); // create new generation
 		return newGen;
 }
+	
+	public Generation mutateGen(){
+		ArrayList<Organism> newGenList = new ArrayList<Organism>();
+		for(int i =0; i< this.gen.size(); i++){
+			newGenList.add(this.gen.get(i).mutate());
+		}
+		while(newGenList.size() < genSize){
+			int rand = (int) Math.floor(Math.random()*(this.gen.size()));
+			//System.out.println("RANDOM: " + rand);
+			newGenList.add(this.gen.get(rand).mutate());
+		}
+		//System.out.println("NEW LIST: " + newGenList.size());
+		Generation newGen = new Generation(newGenList); // create new generation
+		return newGen;
+		
+	}
 
-
+	public Generation betterGen(){
+		ArrayList<Organism> newGenList = new ArrayList<Organism>();
+		for(int i =0; i< this.gen.size(); i++){
+			newGenList.add(this.gen.get(i).mutate());
+		}
+		while(newGenList.size() < genSize){
+			int rand1 = (int) Math.floor(Math.random()*(this.gen.size()));
+			int rand2 = (int) Math.floor(Math.random()*(this.gen.size()));
+			//System.out.println("Rand1 : "+ rand1 + ", Rand2: " + rand2);
+			
+			newGenList.add(this.gen.get(rand1).parent(this.gen.get(rand2)));
+		}
+		
+		Generation newGen = new Generation(newGenList); // create new generation
+		return newGen;
+		
+		
+		
+	}
 
 	public void genInitPopulation(AIMath math, float start, float goal, int limit){
 		System.out.println("Generated intial population");
