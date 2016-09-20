@@ -7,11 +7,11 @@ import AIPack1.*;
 
 
 /*
- * To run the program from command line and read inputs from a text and have the output be a text file do the following:
+ * To run the program from command line and read inputs from a text and have the output to the console do the following:
  * go to the src directory
  * create a text file that have some input, say you called it input.txt
  * compile the program by writing the following in the command line:
- * 			javac -d . AIPack1*.java
+ * 			javac -d . AIPack1/*.java
  * then run the program by writing the following in the command line:
  * 			java AIPack1.Main < input.txt
  * open the output.txt file and it will contain the result of running the program
@@ -59,63 +59,34 @@ public class Main {
 	    AIMath Math = new AIMath();
 	    Math.AddOps(funs);
 	    Result result;
-	    /*
-	    if(searchType.equals("iterative")){ 	
-	    	IterativeDeepening itr= new IterativeDeepening(Math, startNum, targetNum, timeLimit, startTime);
-	    	result = itr.runSearch();
-		    printOutput(result, Math, targetNum);
-
-	    }
-	    else if(searchType.equals("greedy")){
-	    	GreedySearch grd = new GreedySearch(Math, startNum, targetNum, timeLimit, startTime);
-	    	result = grd.runSearch();
-		    printOutput(result, Math, targetNum);
-	    }*/
+	    
 	  	Generation gen = new Generation(new ArrayList<Organism>());
 	    long timePassed;
+	    
 	    if(searchType.equals("genetic")){
 	    	int genNum = 1;
-	    	//initial generation
-	  
-	    	long s =  System.currentTimeMillis(); // to test
+	    	
+	    	//create initial generation
 	    	gen.genInitPopulation(Math, startNum, targetNum, NODE_LIMIT);
-	    	long f = System.currentTimeMillis(); // to test
-//	    	System.out.println("Done gen during: " + (f-s) + " milliseconds"); // INITIAL GENERATION OF POP takes 4 milliseconds
-//	    	System.out.println(gen.printPopulation(100)); // test
 
 
 	    	//culling the first generation
 	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
 	    	gen.setPopulation(red.reduce());
-//	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
-	    	
-/*
-	    	System.out.println("GEN - 1");
 
-	    	PopulationReducer red = new PopulationReducer(gen.getPopulation());
-	    	gen.setPopulation(red.reduce());
-	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
-	    	System.out.println("GEN - 2");
-	    	gen.setPopulation(gen.mutatePopulation());
-	    	System.out.println(gen.printPopulation(gen.getPopulation().size()));
-	    	System.out.println("GEN - 3");
-<<<<<<< HEAD
-	    	*/
+	    	Organism bestOrganism = gen.getPopulation().get(0); //set the best organism so far
 	    	
+	    	timePassed = System.currentTimeMillis() - startTime;//check how much time has passed
 	    	
-	    	Organism bestOrganism = gen.getPopulation().get(0);
-	    	
-	    	timePassed = System.currentTimeMillis() - startTime;
-	    	
-	    	while(timePassed < timeLimit && bestOrganism.getError() != 0){
+	    	while(timePassed < timeLimit && bestOrganism.getError() != 0){//exit the loop when result is found or after time runs out
 	
 	    		genNum++; //next generation
 	    		System.out.println("Generation: " + genNum);
-	    		//TODO: create new gen
+	    		//create a new generation from the previous culled one 
 		    	gen = gen.betterGen();
 	
 	    		
-	    		//culling 
+	    		//culling the new generation
 	    		red = new PopulationReducer(gen.getPopulation());
 	    		gen.setPopulation(red.reduce());
 	    		
@@ -133,55 +104,50 @@ public class Main {
 	    	}
 	    	
 		    System.out.println("Printing Organism Result");
-		    printOrg(bestOrganism, Math, startNum, targetNum, gen.genSize, genNum, timePassed);
+		    printOrg(bestOrganism, Math, startNum, targetNum, gen.genSize, genNum, timePassed);//print the results to console
 	    }
 	    else{
 	    	System.out.println("Input file has an Error");
 	    }
-	    
-
-	    
-	    
+	   
 	    System.out.println("DONE");
 	   
 
 	//end of static void main	
 	}
 	
-public static void printOrg(Organism org, AIMath math,float start, float target, int popSize, int genNum, long time){
-		
+	//function to print the result of the best organism 
+	public static void printOrg(Organism org, AIMath math,float start, float target, int popSize, int genNum, long time){
+
 		//operations
-		//TODO : similar to what is done with result
-	
-	float current = start;
-	float next; 
-	String currentStr;
-	String toPrint;
-	//Print the operations
-	for(int i = 0; i < org.getOperations().size(); i++){
-		currentStr = Float.toString(current) + getOpFromIndex(org.getOperations().get(i));
-		next = math.Op(org.getOperations().get(i),current);
-		toPrint = currentStr + "=" + Float.toString(next);
-		System.out.println(toPrint);
-		current = next;
-	}
-	
-	
+		float current = start;
+		float next; 
+		String currentStr;
+		String toPrint;
+		//Print the operations
+		for(int i = 0; i < org.getOperations().size(); i++){
+			currentStr = Float.toString(current) + getOpFromIndex(org.getOperations().get(i));
+			next = math.Op(org.getOperations().get(i),current);
+			toPrint = currentStr + "=" + Float.toString(next);
+			System.out.println(toPrint);
+			current = next;
+		}
+
 		//Error
 		System.out.println("Error: " + org.getError());
-		
+
 		//Size of organism
 		System.out.println("Size of organism: "+ org.getSize());
-		
+
 		//search required (time in seconds)
 		System.out.println("Search Required: " + time/1000 +" seconds");
-		
+
 		//Population size of gen 
 		System.out.println("Population size: " + popSize);
-		
+
 		//number of generations
 		System.out.println("Number of generations: " + genNum);
-		
+
 	}
 
 	/*

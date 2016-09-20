@@ -3,15 +3,11 @@ package AIPack1;
 import java.util.ArrayList;
 
 /**
- *
+ *This class contains functions used for selection and culling
  */
 public class PopulationReducer {
 
     private static double PERCENT_FLIPPED = 0.10;
-
-
-
-//    private float median;        // this is the middle of the fitness function result // not used whoops
     public ArrayList<Organism> organisms;
     private int length;
 
@@ -22,18 +18,7 @@ public class PopulationReducer {
         this.organisms = new ArrayList<Organism>();
         for(Organism o : organisms)
             (this.organisms).add(o);
-//
-//        System.out.println("These are the generations before sorting");
-//        for(int i = 0; i < length; i++){
-//            System.out.print(i + ": " );
-//            for(int j = 0; j < organisms.get(i).getSize(); j++){
-//                System.out.print("| " + organisms.get(i).getOperations().get(j));
-//            }
-//            System.out.println("");
-//        }
-//
         quickSort(this.organisms, 0, length - 1);
-//        median = this.organisms[length / 2 - 1].getFitnessFunction();
     }
 
     // NOTE: there are two reduce functions (both should work, choose whichever)
@@ -76,7 +61,7 @@ public class PopulationReducer {
         return finalList;
     }
 
-    // heavily referenced http://www.algolist.net/Algorithms/Sorting/Quicksort
+    // heavily referenced from http://www.algolist.net/Algorithms/Sorting/Quicksort
     private void quickSort(ArrayList<Organism> toSort, int low, int high){
         if(low < high){
             int pivot = partition(toSort, low, high);
